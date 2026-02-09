@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBR Air Conditioning & Refrigeration | FL Corp</title>
+  <meta name="description" content="MBR Air Conditioning & Refrigeration FL Corp — family-owned HVAC company providing expert AC installation, repair, maintenance, and refrigeration services in Florida. Request a free quote today.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #0A0F1E;
+      --navy-mid: #111833;
+      --blue: #1A3FE0;
+      --blue-light: #4A7BFF;
+      --red: #D41920;
+      --red-dark: #B5151B;
+      --ice: #EDF1F8;
+      --white: #FFFFFF;
+      --gray-700: #2D3748;
+      --gray-500: #718096;
+      --gray-400: #A0AEC0;
+      --radius: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--navy);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 74px;
+    }
+    .logo-area {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .logo-area img {
+      height: 52px; width: auto;
+    }
+    .logo-text {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800; font-size: 1.15rem;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .logo-text small {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--gray-500);
+      letter-spacing: 0.5px;
+    }
+    nav ul {
+      list-style: none; display: flex; gap: 2rem; align-items: center;
+    }
+    nav ul li a {
+      text-decoration: none; color: var(--gray-700);
+      font-weight: 500; font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    nav ul li a:hover { color: var(--blue); }
+    .nav-cta {
+      background: var(--red) !important;
+      color: var(--white) !important;
+      padding: 10px 22px; border-radius: 8px;
+      font-weight: 700 !important;
+      transition: transform 0.2s, box-shadow 0.2s !important;
+    }
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(212,25,32,0.35);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 140px 2rem 90px;
+      background: linear-gradient(165deg, var(--navy) 0%, var(--navy-mid) 40%, #0D1E5C 70%, #1A2D8A 100%);
+      color: var(--white);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 600px 300px at 20% 80%, rgba(212,25,32,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 500px 250px at 80% 20%, rgba(26,63,224,0.1) 0%, transparent 70%);
+    }
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-logo {
+      width: 120px; height: auto;
+      margin-bottom: 1.5rem;
+      position: relative;
+      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
+    }
+    .hero h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--red), var(--blue-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 560px;
+      margin: 0 auto 2rem;
+      position: relative;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      padding: 16px 36px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.05rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212,25,32,0.4);
+    }
+    .trust-bar {
+      margin-top: 3rem;
+      display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+      position: relative;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.6); font-size: 0.9rem; font-weight: 500;
+    }
+    .trust-item svg { flex-shrink: 0; }
+
+    /* ── SERVICES ── */
+    .services {
+      padding: 80px 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .section-label {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .service-card {
+      background: var(--ice);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.25rem;
+      text-align: left;
+      transition: transform 0.25s, box-shadow 0.25s;
+      border: 1px solid transparent;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(10,15,30,0.08);
+      border-color: rgba(26,63,224,0.1);
+    }
+    .service-icon {
+      width: 46px; height: 46px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .service-icon.blue { background: var(--blue); }
+    .service-icon.red { background: var(--red); }
+    .service-icon.navy { background: var(--navy); }
+    .service-icon.mix { background: linear-gradient(135deg, var(--red), var(--blue)); }
+    .service-card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+    .service-card p {
+      color: var(--gray-500);
+      font-size: 0.9rem;
+    }
+
+    /* ── QUOTE FORM ── */
+    .quote-section {
+      padding: 80px 2rem;
+      background: var(--navy);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .quote-section::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(212,25,32,0.08), transparent 70%);
+    }
+    .quote-inner {
+      max-width: 620px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .quote-section .section-label { color: var(--blue-light); }
+    .quote-section .section-title { color: var(--white); margin-bottom: 0.75rem; }
+    .quote-section .section-sub {
+      color: var(--gray-400); margin-bottom: 2.5rem; font-size: 1rem;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: rgba(255,255,255,0.6);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255,255,255,0.3);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--blue-light);
+    }
+    .form-group select option { color: #333; }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .submit-btn {
+      margin-top: 1.5rem;
+      width: 100%;
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212,25,32,0.4);
+    }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+    .form-success h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .form-success p { color: var(--gray-400); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 2rem;
+      text-align: center;
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      color: var(--gray-400);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--blue-light); text-decoration: none; }
+    .footer-phone {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .footer-brand {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin-bottom: 0.75rem;
+    }
+    .footer-brand img { height: 32px; }
+
+    /* ── MOBILE ── */
+    .mobile-menu { display: none; background: none; border: none; cursor: pointer; }
+    @media (max-width: 768px) {
+      nav ul { display: none; }
+      .mobile-menu { display: block; }
+      nav ul.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 74px; left: 0; right: 0;
+        background: white; padding: 1.5rem 2rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        gap: 1rem;
+      }
+      .form-grid { grid-template-columns: 1fr; }
+      .hero { padding: 120px 1.5rem 60px; }
+      .hero-logo { width: 90px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .logo-text { font-size: 1rem; }
+    }
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo-area">
+    <img src="Logo2.png" alt="MBR Air Conditioning & Refrigeration">
+    <div class="logo-text">
+      MBR AC &amp; Refrigeration
+      <small>FL Corp</small>
+    </div>
+  </a>
+  <button class="mobile-menu" onclick="document.querySelector('nav ul').classList.toggle('open')" aria-label="Menu">
+    <svg width="28" height="28" fill="none" stroke="#0A0F1E" stroke-width="2.5"><path d="M4 7h20M4 14h20M4 21h20"/></svg>
+  </button>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#quote">Get a Quote</a></li>
+    <li><a href="tel:+15551234567">Call Us</a></li>
+    <li><a href="#quote" class="nav-cta">Free Estimate</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="Logo2.png" alt="MBR Logo" class="hero-logo">
+  <h1>Florida's Trusted <span>Cooling Experts</span></h1>
+  <p>Family-owned air conditioning &amp; refrigeration professionals delivering honest service, expert installations, and reliable repairs across Florida.</p>
+  <a href="#quote" class="hero-cta">Request a Free Quote →</a>
+  <div class="trust-bar">
+    <div class="trust-item">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="10" cy="10" r="9"/></svg>
+      Licensed &amp; Insured
+    </div>
+    <div class="trust-item">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="10" cy="10" r="9"/></svg>
+      Family Owned
+    </div>
+    <div class="trust-item">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="10" cy="10" r="9"/></svg>
+      Free Estimates
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label">What We Do</div>
+  <h2 class="section-title">Our Services</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon red">
+        <svg width="24" height="24" fill="none" stroke="white" stroke-width="2"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+      </div>
+      <h3>AC Repair</h3>
+      <p>Fast diagnostics and repair for all makes and models. We get your system running right.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon blue">
+        <svg width="24" height="24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></svg>
+      </div>
+      <h3>New Installation</h3>
+      <p>Energy-efficient systems sized right for your space with professional installation and warranties.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon navy">
+        <svg width="24" height="24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </div>
+      <h3>Maintenance</h3>
+      <p>Regular tune-ups to keep your system at peak efficiency, saving money and extending equipment life.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon mix">
+        <svg width="24" height="24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M6 6V4a2 2 0 012-2h8a2 2 0 012 2v2"/><path d="M12 12v2"/></svg>
+      </div>
+      <h3>Refrigeration</h3>
+      <p>Commercial refrigeration installation, repair, and maintenance for restaurants and businesses.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE FORM -->
+<section class="quote-section" id="quote">
+  <div class="quote-inner">
+    <div class="section-label">Get Started</div>
+    <h2 class="section-title">Request a Free Quote</h2>
+    <p class="section-sub">Tell us about your project and we'll get back to you within 24 hours.</p>
+
+    <form id="quoteForm" class="form-grid" action="https://formsubmit.co/info@mbracfl.com" method="POST">
+      <!-- REPLACE YOUR_EMAIL_HERE above with your real email -->
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New Quote Request — MBR AC Website">
+      <input type="hidden" name="_template" value="table">
+
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="John Smith" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+      </div>
+      <div class="form-group">
+        <label for="service">Service Needed</label>
+        <select id="service" name="service" required>
+          <option value="" disabled selected>Select a service</option>
+          <option value="AC Repair">AC Repair</option>
+          <option value="New AC Installation">New AC Installation</option>
+          <option value="AC Maintenance">AC Maintenance / Tune-Up</option>
+          <option value="Refrigeration">Refrigeration Services</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label for="address">Service Address</label>
+        <input type="text" id="address" name="address" placeholder="123 Main St, City, FL" required>
+      </div>
+      <div class="form-group full">
+        <label for="details">Project Details</label>
+        <textarea id="details" name="details" placeholder="Tell us what's going on — system type, age, symptoms, etc."></textarea>
+      </div>
+      <div class="form-group full">
+        <button type="submit" class="submit-btn">Submit Quote Request</button>
+      </div>
+    </form>
+
+    <div class="form-success" id="formSuccess">
+      <h3>✓ Request Received!</h3>
+      <p>We'll be in touch within 24 hours. Thanks for choosing MBR Air Conditioning.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <img src="Logo2.png" alt="MBR">
+  </div>
+  <!-- REPLACE with your actual phone number -->
+  <div class="footer-phone"><a href="tel:+15551234567">(239) 440-9425</a></div>
+  <p>&copy; 2026 MBR Air Conditioning &amp; Refrigeration FL Corp. All rights reserved.</p>
+  <p style="margin-top: 4px;">Licensed &amp; Insured · Serving Southwest Florida</p>
+</footer>
+
+</body>
+</html>
