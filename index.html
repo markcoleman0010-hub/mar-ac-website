@@ -3,246 +3,907 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MBR Air Conditioning & Refrigeration | FL Corp</title>
-  <meta name="description" content="MBR Air Conditioning & Refrigeration FL Corp — family-owned HVAC company providing expert AC installation, repair, maintenance, and refrigeration services in Florida. Request a free quote today.">
+  <title>MBR Air Conditioning & Refrigeration | Southwest Florida's Premier HVAC</title>
+  <meta name="description" content="MBR Air Conditioning & Refrigeration FL Corp — Southwest Florida's trusted HVAC experts. Premium AC installation, repair, maintenance & commercial refrigeration. Family-owned. Licensed & insured. Call (239) 440-9425 for a free estimate.">
+  <meta name="keywords" content="AC repair Fort Myers, HVAC Cape Coral, air conditioning Naples, refrigeration Southwest Florida, AC installation, emergency AC repair, MBR AC">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="MBR Air Conditioning & Refrigeration | Southwest Florida">
+  <meta property="og:description" content="Premium HVAC services — AC repair, installation, maintenance & commercial refrigeration. Family-owned, licensed & insured. Free estimates.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="Logo2.png">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HVACBusiness",
+    "name": "MBR Air Conditioning & Refrigeration FL Corp",
+    "description": "Family-owned HVAC company providing premium AC installation, repair, maintenance, and commercial refrigeration services in Southwest Florida.",
+    "telephone": "+1-239-440-9425",
+    "email": "info@mbracfl.com",
+    "areaServed": ["Fort Myers", "Cape Coral", "Naples", "Bonita Springs", "Lehigh Acres", "Estero", "Marco Island", "Sanibel", "Fort Myers Beach"],
+    "priceRange": "$$",
+    "openingHours": "Mo-Sa 07:00-19:00",
+    "paymentAccepted": "Cash, Credit Card, Check",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "HVAC Services",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AC Repair"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AC Installation"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AC Maintenance"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Commercial Refrigeration"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Duct Work"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Emergency HVAC Service"}}
+      ]
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --navy: #0A0F1E;
-      --navy-mid: #111833;
-      --blue: #1A3FE0;
-      --blue-light: #4A7BFF;
+      --bg-deep: #07090F;
+      --bg-primary: #0B0E17;
+      --bg-card: #111827;
+      --bg-card-hover: #1A2235;
+      --bg-glass: rgba(255, 255, 255, 0.03);
+      --bg-glass-border: rgba(255, 255, 255, 0.06);
+
+      --blue: #3B6FF5;
+      --blue-light: #5B8BFF;
+      --blue-glow: rgba(59, 111, 245, 0.15);
       --red: #D41920;
-      --red-dark: #B5151B;
-      --ice: #EDF1F8;
+      --red-light: #E8343B;
+      --red-glow: rgba(212, 25, 32, 0.25);
+
       --white: #FFFFFF;
-      --gray-700: #2D3748;
-      --gray-500: #718096;
-      --gray-400: #A0AEC0;
-      --radius: 10px;
+      --text-primary: #F1F5F9;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+
+      --radius-sm: 8px;
+      --radius: 12px;
+      --radius-lg: 20px;
+
+      --font-display: 'Montserrat', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
-      color: var(--navy);
-      background: var(--white);
-      line-height: 1.6;
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      background: var(--bg-deep);
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.018;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 200px 200px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── SECTION HELPERS ── */
+    .section-label {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--blue);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::before {
+      content: '';
+      width: 28px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), var(--blue));
+      display: inline-block;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: var(--white);
+    }
+    .section-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
 
     /* ── NAV ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0,0,0,0.06);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(7, 9, 15, 0.85);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--bg-glass-border);
+      height: 76px;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(7, 9, 15, 0.95);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 0 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
     }
     .logo-area {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; gap: 12px;
       text-decoration: none;
     }
     .logo-area img {
-      height: 52px; width: auto;
+      height: 40px; width: auto;
     }
     .logo-text {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 800; font-size: 1.15rem;
-      color: var(--navy);
+      font-family: var(--font-display);
+      font-weight: 800; font-size: 1.2rem;
+      color: var(--white);
       line-height: 1.2;
     }
     .logo-text small {
       display: block;
-      font-size: 0.65rem;
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
       font-weight: 500;
-      color: var(--gray-500);
-      letter-spacing: 0.5px;
-    }
-    nav ul {
-      list-style: none; display: flex; gap: 2rem; align-items: center;
-    }
-    nav ul li a {
-      text-decoration: none; color: var(--gray-700);
-      font-weight: 500; font-size: 0.95rem;
+      font-size: 0.9rem;
       transition: color 0.2s;
+      position: relative;
     }
-    nav ul li a:hover { color: var(--blue); }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--red), var(--blue));
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-phone {
+      display: flex; align-items: center; gap: 8px;
+      color: var(--blue) !important;
+      font-weight: 700 !important;
+      font-size: 0.95rem !important;
+    }
+    .nav-phone::after { display: none !important; }
+    .nav-phone svg { flex-shrink: 0; }
+
     .nav-cta {
       background: var(--red) !important;
       color: var(--white) !important;
-      padding: 10px 22px; border-radius: 8px;
+      padding: 10px 24px !important;
+      border-radius: var(--radius-sm) !important;
       font-weight: 700 !important;
-      transition: transform 0.2s, box-shadow 0.2s !important;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s !important;
     }
+    .nav-cta::after { display: none !important; }
     .nav-cta:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 14px rgba(212,25,32,0.35);
+      transform: translateY(-1px) !important;
+      box-shadow: 0 4px 20px var(--red-glow) !important;
+      background: #EF4444 !important;
+    }
+
+    /* ── MOBILE MENU ── */
+    .mobile-toggle {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      padding: 4px;
+    }
+    .mobile-toggle span {
+      display: block; width: 24px; height: 2px;
+      background: var(--text-primary);
+      margin: 6px 0;
+      transition: transform 0.3s, opacity 0.3s;
+      border-radius: 2px;
+    }
+    .mobile-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+    .mobile-toggle.active span:nth-child(2) { opacity: 0; }
+    .mobile-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .mobile-toggle { display: block; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 76px; left: 0; right: 0;
+        background: rgba(7, 9, 15, 0.97);
+        backdrop-filter: blur(20px);
+        padding: 2rem;
+        gap: 1.25rem;
+        border-bottom: 1px solid var(--bg-glass-border);
+        animation: menuSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .logo-banner { height: 60vh; }
+      .logo-banner img { max-width: 280px; padding: 1.5rem; }
+      .hero { padding: 120px 1.5rem 60px; }
+    }
+    @keyframes menuSlide {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* ── HERO ── */
     .hero {
-      padding: 140px 2rem 90px;
-      background: linear-gradient(165deg, var(--navy) 0%, var(--navy-mid) 40%, #0D1E5C 70%, #1A2D8A 100%);
-      color: var(--white);
-      text-align: center;
+      padding: 140px 2rem 100px;
+      display: flex;
+      align-items: center;
       position: relative;
       overflow: hidden;
     }
-    .hero::before {
-      content: '';
+    .hero-bg {
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 600px 300px at 20% 80%, rgba(212,25,32,0.12) 0%, transparent 70%),
-        radial-gradient(ellipse 500px 250px at 80% 20%, rgba(26,63,224,0.1) 0%, transparent 70%);
+        radial-gradient(ellipse 80% 50% at 20% 80%, rgba(59, 111, 245, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(220, 38, 38, 0.04) 0%, transparent 60%),
+        radial-gradient(ellipse 100% 80% at 50% 0%, rgba(17, 24, 39, 1) 0%, var(--bg-deep) 100%);
     }
-    .hero::after {
-      content: '';
+    .hero-mesh {
       position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background:
+        conic-gradient(from 180deg at 70% 30%, transparent 0deg, rgba(59, 111, 245, 0.03) 60deg, transparent 120deg),
+        conic-gradient(from 0deg at 30% 70%, transparent 0deg, rgba(220, 38, 38, 0.02) 90deg, transparent 180deg);
     }
-    .hero-logo {
-      width: 120px; height: auto;
-      margin-bottom: 1.5rem;
+    .hero-grid-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 0%, transparent 70%);
+    }
+    .hero-glow {
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.4;
+      animation: glowPulse 8s ease-in-out infinite alternate;
+    }
+    .hero-glow-1 {
+      top: 10%; right: 10%;
+      background: rgba(59, 111, 245, 0.08);
+    }
+    .hero-glow-2 {
+      bottom: 10%; left: 5%;
+      background: rgba(220, 38, 38, 0.05);
+      animation-delay: 4s;
+    }
+    @keyframes glowPulse {
+      0% { transform: scale(1); opacity: 0.3; }
+      100% { transform: scale(1.2); opacity: 0.5; }
+    }
+
+    /* ── LOGO BANNER (fixed, scrolled over) ── */
+    .logo-banner {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 0;
+      background: var(--bg-deep);
+    }
+    .logo-banner img {
+      max-width: 420px;
+      width: 70%;
+      height: auto;
+    }
+
+    .page-content {
       position: relative;
-      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
+      z-index: 1;
+      margin-top: 100vh;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 50px;
+      border: 1px solid rgba(59, 111, 245, 0.25);
+      background: rgba(59, 111, 245, 0.06);
+      color: var(--blue);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      background: var(--blue);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
     }
     .hero h1 {
-      font-family: 'Outfit', sans-serif;
-      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6.5vw, 4.5rem);
       font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 1rem;
-      position: relative;
+      line-height: 1.08;
+      margin-bottom: 1.5rem;
+      max-width: 700px;
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
     }
-    .hero h1 span {
-      background: linear-gradient(90deg, var(--red), var(--blue-light));
+    .hero h1 .accent {
+      background: linear-gradient(135deg, var(--red), var(--blue-light), var(--blue));
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      animation: shimmer 4s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% center; }
+      50% { background-position: 100% center; }
     }
     .hero p {
       font-size: 1.15rem;
-      color: rgba(255,255,255,0.7);
-      max-width: 560px;
-      margin: 0 auto 2rem;
-      position: relative;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
     }
-    .hero-cta {
-      display: inline-block;
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
       background: var(--red);
-      color: white;
-      padding: 16px 36px;
-      border-radius: 10px;
+      color: var(--white);
+      padding: 16px 32px;
+      border-radius: var(--radius);
       text-decoration: none;
       font-weight: 700;
-      font-size: 1.05rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-      position: relative;
+      font-size: 1rem;
+      transition: transform 0.25s, box-shadow 0.25s;
+      border: none; cursor: pointer;
     }
-    .hero-cta:hover {
+    .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(212,25,32,0.4);
+      box-shadow: 0 8px 30px var(--red-glow);
     }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent;
+      color: var(--blue);
+      padding: 16px 32px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      border: 1.5px solid rgba(59, 111, 245, 0.35);
+      transition: transform 0.25s, background 0.25s, border-color 0.25s;
+      cursor: pointer;
+    }
+    .btn-outline:hover {
+      transform: translateY(-2px);
+      background: rgba(59, 111, 245, 0.08);
+      border-color: var(--blue);
+    }
+
     .trust-bar {
-      margin-top: 3rem;
-      display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
-      position: relative;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s both;
     }
     .trust-item {
-      display: flex; align-items: center; gap: 8px;
-      color: rgba(255,255,255,0.6); font-size: 0.9rem; font-weight: 500;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
     }
-    .trust-item svg { flex-shrink: 0; }
+    .trust-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(59, 111, 245, 0.08);
+      border: 1px solid rgba(59, 111, 245, 0.15);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .trust-icon svg { color: var(--blue); }
 
     /* ── SERVICES ── */
     .services {
-      padding: 80px 2rem;
-      max-width: 1000px;
-      margin: 0 auto;
-      text-align: center;
+      padding: 100px 0;
+      position: relative;
     }
-    .section-label {
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: var(--blue);
-      margin-bottom: 0.5rem;
-    }
-    .section-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 3rem;
+    .services-header {
+      margin-bottom: 3.5rem;
     }
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
     }
     .service-card {
-      background: var(--ice);
+      background: var(--bg-card);
+      border: 1px solid var(--bg-glass-border);
       border-radius: var(--radius);
-      padding: 1.75rem 1.25rem;
-      text-align: left;
-      transition: transform 0.25s, box-shadow 0.25s;
-      border: 1px solid transparent;
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.35s;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), var(--blue), transparent);
+      opacity: 0;
+      transition: opacity 0.35s;
     }
     .service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(10,15,30,0.08);
-      border-color: rgba(26,63,224,0.1);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border-color: rgba(59, 111, 245, 0.12);
     }
-    .service-icon {
-      width: 46px; height: 46px;
-      border-radius: 10px;
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon-wrap {
+      width: 52px; height: 52px;
+      border-radius: var(--radius-sm);
       display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
+      position: relative;
     }
-    .service-icon.blue { background: var(--blue); }
-    .service-icon.red { background: var(--red); }
-    .service-icon.navy { background: var(--navy); }
-    .service-icon.mix { background: linear-gradient(135deg, var(--red), var(--blue)); }
+    .service-icon-wrap.blue {
+      background: linear-gradient(135deg, rgba(59, 111, 245, 0.15), rgba(59, 111, 245, 0.05));
+      border: 1px solid rgba(59, 111, 245, 0.2);
+    }
+    .service-icon-wrap.blue svg { color: var(--blue); }
+    .service-icon-wrap.red {
+      background: linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(220, 38, 38, 0.05));
+      border: 1px solid rgba(220, 38, 38, 0.2);
+    }
+    .service-icon-wrap.red svg { color: var(--red); }
     .service-card h3 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.1rem;
-      margin-bottom: 0.4rem;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--white);
     }
     .service-card p {
-      color: var(--gray-500);
+      color: var(--text-secondary);
       font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* ── WHY CHOOSE US ── */
+    .why-section {
+      padding: 100px 0;
+      position: relative;
+    }
+    .why-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(59, 111, 245, 0.02) 50%, transparent 100%);
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    .stat-card {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--bg-glass-border);
+      border-radius: var(--radius);
+      position: relative;
+    }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--blue);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .why-features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    .why-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--bg-glass-border);
+      border-radius: var(--radius);
+      transition: border-color 0.3s;
+    }
+    .why-feature:hover {
+      border-color: rgba(59, 111, 245, 0.15);
+    }
+    .why-feature-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(59, 111, 245, 0.08);
+      border: 1px solid rgba(59, 111, 245, 0.15);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .why-feature-icon svg { color: var(--blue); }
+    .why-feature h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: var(--white);
+    }
+    .why-feature p {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    /* ── SERVICE AREAS ── */
+    .areas-section {
+      padding: 100px 0;
+    }
+    .areas-header {
+      margin-bottom: 3rem;
+    }
+    .areas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .area-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 1.15rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--bg-glass-border);
+      border-radius: var(--radius-sm);
+      transition: border-color 0.3s, transform 0.25s;
+    }
+    .area-card:hover {
+      border-color: rgba(59, 111, 245, 0.2);
+      transform: translateY(-2px);
+    }
+    .area-pin {
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+    .area-card span {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-section {
+      padding: 100px 0;
+      position: relative;
+    }
+    .testimonials-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(59, 111, 245, 0.015) 50%, transparent 100%);
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-glass-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      position: relative;
+    }
+    .testimonial-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 1rem;
+    }
+    .testimonial-stars svg { color: var(--blue); }
+    .testimonial-card blockquote {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--red));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: var(--white);
+    }
+    .testimonial-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--white);
+    }
+    .testimonial-location {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ── EMERGENCY BANNER ── */
+    .emergency-banner {
+      padding: 60px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .emergency-inner {
+      background: linear-gradient(135deg, var(--red), #991B1B, var(--red));
+      border-radius: var(--radius-lg);
+      padding: 3.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .emergency-inner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 80% at 0% 50%, rgba(59, 111, 245, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 80% at 100% 50%, rgba(0, 0, 0, 0.2) 0%, transparent 60%);
+    }
+    .emergency-text {
+      position: relative;
+    }
+    .emergency-text h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .emergency-text p {
+      color: rgba(255,255,255,0.8);
+      font-size: 1rem;
+    }
+    .emergency-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      color: var(--red);
+      padding: 18px 36px;
+      border-radius: var(--radius);
+      font-weight: 800;
+      font-size: 1.1rem;
+      font-family: var(--font-display);
+      text-decoration: none;
+      transition: transform 0.25s, box-shadow 0.25s;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .emergency-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ── FAQ ── */
+    .faq-section {
+      padding: 100px 0;
+    }
+    .faq-header {
+      margin-bottom: 3rem;
+    }
+    .faq-list {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      border: 1px solid var(--bg-glass-border);
+      border-radius: var(--radius);
+      margin-bottom: 0.75rem;
+      background: var(--bg-card);
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .faq-item:hover {
+      border-color: rgba(59, 111, 245, 0.12);
+    }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      gap: 1rem;
+    }
+    .faq-question:hover { color: var(--blue); }
+    .faq-chevron {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+      color: var(--blue);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-answer-inner {
+      padding: 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.8;
     }
 
     /* ── QUOTE FORM ── */
     .quote-section {
-      padding: 80px 2rem;
-      background: var(--navy);
-      color: var(--white);
+      padding: 100px 0;
       position: relative;
-      overflow: hidden;
     }
     .quote-section::before {
       content: '';
-      position: absolute; top: 0; right: 0;
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(212,25,32,0.08), transparent 70%);
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(59, 111, 245, 0.02) 50%, transparent 100%);
     }
-    .quote-inner {
-      max-width: 620px;
-      margin: 0 auto;
+    .quote-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 3rem;
+      align-items: start;
       position: relative;
     }
-    .quote-section .section-label { color: var(--blue-light); }
-    .quote-section .section-title { color: var(--white); margin-bottom: 0.75rem; }
-    .quote-section .section-sub {
-      color: var(--gray-400); margin-bottom: 2.5rem; font-size: 1rem;
+    .quote-info {
+      position: sticky;
+      top: 120px;
+    }
+    .quote-info .section-subtitle {
+      margin-bottom: 2.5rem;
+    }
+    .quote-benefits {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .quote-benefits li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    .quote-benefits li svg { color: var(--blue); flex-shrink: 0; }
+
+    .quote-form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
     }
     .form-grid {
       display: grid;
@@ -252,257 +913,909 @@
     .form-group { display: flex; flex-direction: column; }
     .form-group.full { grid-column: 1 / -1; }
     .form-group label {
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-bottom: 6px;
-      color: rgba(255,255,255,0.6);
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     .form-group input,
     .form-group select,
     .form-group textarea {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 8px;
-      padding: 12px 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
       color: var(--white);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 0.95rem;
-      transition: border-color 0.2s;
+      transition: border-color 0.25s, background 0.25s;
       outline: none;
     }
     .form-group input::placeholder,
     .form-group textarea::placeholder {
-      color: rgba(255,255,255,0.3);
+      color: var(--text-muted);
     }
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
-      border-color: var(--blue-light);
+      border-color: var(--blue);
+      background: rgba(59, 111, 245, 0.04);
     }
-    .form-group select option { color: #333; }
-    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-group select option { color: #1a1a1a; background: #fff; }
+    .form-group textarea { resize: vertical; min-height: 110px; }
     .submit-btn {
-      margin-top: 1.5rem;
+      margin-top: 0.75rem;
       width: 100%;
       background: var(--red);
       color: white;
       border: none;
-      padding: 16px;
-      border-radius: 10px;
-      font-family: 'Outfit', sans-serif;
+      padding: 18px;
+      border-radius: var(--radius);
+      font-family: var(--font-display);
       font-size: 1.05rem;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.25s, box-shadow 0.25s;
+      letter-spacing: 0.3px;
     }
     .submit-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(212,25,32,0.4);
+      box-shadow: 0 8px 30px var(--red-glow);
     }
     .form-success {
       display: none;
       text-align: center;
-      padding: 2rem;
+      padding: 3rem 2rem;
+    }
+    .form-success-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: rgba(59, 111, 245, 0.1);
+      border: 2px solid var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
     }
     .form-success h3 {
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--font-display);
       font-size: 1.5rem;
       margin-bottom: 0.5rem;
+      color: var(--white);
     }
-    .form-success p { color: var(--gray-400); }
+    .form-success p { color: var(--text-secondary); }
 
     /* ── FOOTER ── */
     footer {
-      padding: 2.5rem 2rem;
-      text-align: center;
-      background: var(--navy);
-      border-top: 1px solid rgba(255,255,255,0.05);
-      color: var(--gray-400);
+      padding: 60px 0 30px;
+      border-top: 1px solid var(--bg-glass-border);
+      position: relative;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand-col .logo-area {
+      margin-bottom: 1rem;
+    }
+    .footer-brand-col p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .footer-col h4 {
+      font-family: var(--font-display);
       font-size: 0.85rem;
-    }
-    footer a { color: var(--blue-light); text-decoration: none; }
-    .footer-phone {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.15rem;
       font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.5rem;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1.25rem;
     }
-    .footer-brand {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col ul li {
+      margin-bottom: 0.6rem;
+    }
+    .footer-col ul li a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-col .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       margin-bottom: 0.75rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
     }
-    .footer-brand img { height: 32px; }
+    .footer-col .contact-item svg { color: var(--blue); flex-shrink: 0; }
+    .footer-col .contact-item a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col .contact-item a:hover { color: var(--white); }
+    .footer-bottom {
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--bg-glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+    .footer-bottom-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-bottom-links a {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-bottom-links a:hover { color: var(--text-secondary); }
 
-    /* ── MOBILE ── */
-    .mobile-menu { display: none; background: none; border: none; cursor: pointer; }
-    @media (max-width: 768px) {
-      nav ul { display: none; }
-      .mobile-menu { display: block; }
-      nav ul.open {
-        display: flex; flex-direction: column;
-        position: absolute; top: 74px; left: 0; right: 0;
-        background: white; padding: 1.5rem 2rem;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-        gap: 1rem;
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-features { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .quote-wrapper { grid-template-columns: 1fr; }
+      .quote-info { position: static; }
+      .emergency-inner {
+        flex-direction: column;
+        text-align: center;
+        padding: 2.5rem 2rem;
       }
-      .form-grid { grid-template-columns: 1fr; }
-      .hero { padding: 120px 1.5rem 60px; }
-      .hero-logo { width: 90px; }
-      .services-grid { grid-template-columns: 1fr 1fr; }
-      .logo-text { font-size: 1rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
+      .logo-banner { height: 50vh; }
+      .logo-banner img { max-width: 220px; padding: 1.25rem; }
+      .page-content { margin-top: 50vh; }
       .services-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .areas-grid { grid-template-columns: 1fr 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .hero { padding: 100px 1.5rem 60px; }
+      .trust-bar { flex-direction: column; gap: 1rem; }
+      .footer-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="logo-area">
-    <img src="Logo2.png" alt="MBR Air Conditioning & Refrigeration">
-    <div class="logo-text">
-      MBR AC &amp; Refrigeration
-      <small>FL Corp</small>
-    </div>
-  </a>
-  <button class="mobile-menu" onclick="document.querySelector('nav ul').classList.toggle('open')" aria-label="Menu">
-    <svg width="28" height="28" fill="none" stroke="#0A0F1E" stroke-width="2.5"><path d="M4 7h20M4 14h20M4 21h20"/></svg>
-  </button>
-  <ul>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#quote">Get a Quote</a></li>
-    <li><a href="tel:+15551234567">Call Us</a></li>
-    <li><a href="#quote" class="nav-cta">Free Estimate</a></li>
-  </ul>
+<!-- ═══════════════════════════════════ LOGO BANNER (fixed) ═══════════════════════════════════ -->
+<div class="logo-banner" aria-hidden="true">
+  <img src="Logo2.png" alt="MBR Air Conditioning & Refrigeration">
+</div>
+
+<!-- ═══════════════════════════════════ PAGE CONTENT (scrolls over logo) ═══════════════════════════════════ -->
+<div class="page-content">
+
+<!-- ═══════════════════════════════════ NAV ═══════════════════════════════════ -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="#" class="logo-area">
+      <div class="logo-text">
+        MBR AC &amp; Refrigeration
+        <small>FL Corp</small>
+      </div>
+    </a>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#areas">Areas</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li>
+        <a href="tel:+12394409425" class="nav-phone">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 11.2A10.3 10.3 0 011 1l2.5-.5L5.8 4l-2 2.3a11 11 0 005 5L11 9.2l3.5 2.3z"/></svg>
+          (239) 440-9425
+        </a>
+      </li>
+      <li><a href="#quote" class="nav-cta">Free Estimate</a></li>
+    </ul>
+  </div>
 </nav>
 
-<!-- HERO -->
+<!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
 <section class="hero">
-  <img src="Logo2.png" alt="MBR Logo" class="hero-logo">
-  <h1>Florida's Trusted <span>Cooling Experts</span></h1>
-  <p>Family-owned air conditioning &amp; refrigeration professionals delivering honest service, expert installations, and reliable repairs across Florida.</p>
-  <a href="#quote" class="hero-cta">Request a Free Quote →</a>
-  <div class="trust-bar">
-    <div class="trust-item">
-      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="10" cy="10" r="9"/></svg>
-      Licensed &amp; Insured
-    </div>
-    <div class="trust-item">
-      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="10" cy="10" r="9"/></svg>
-      Family Owned
-    </div>
-    <div class="trust-item">
-      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="10" cy="10" r="9"/></svg>
-      Free Estimates
+  <div class="hero-bg"></div>
+  <div class="hero-mesh"></div>
+  <div class="hero-grid-pattern"></div>
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
+
+  <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Serving Southwest Florida
+      </div>
+      <h1>Premium Cooling.<br><span class="accent">Honest Service.</span></h1>
+      <p>Family-owned air conditioning &amp; refrigeration experts delivering precision installations, reliable repairs, and the kind of service Florida homeowners deserve.</p>
+      <div class="hero-ctas">
+        <a href="#quote" class="btn-primary">
+          Request Free Quote
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.5l6-5-6-5"/></svg>
+        </a>
+        <a href="tel:+12394409425" class="btn-outline">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 11.2A10.3 10.3 0 011 1l2.5-.5L5.8 4l-2 2.3a11 11 0 005 5L11 9.2l3.5 2.3z"/></svg>
+          Call (239) 440-9425
+        </a>
+      </div>
+      <div class="trust-bar">
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1l2.4 4.8 5.3.8-3.8 3.7.9 5.3L9 13.1l-4.8 2.5.9-5.3L1.3 6.6l5.3-.8z"/></svg>
+        </div>
+        Licensed &amp; Insured
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1C5.7 1 3 3.7 3 7c0 5 6 10 6 10s6-5 6-10c0-3.3-2.7-6-6-6z"/><circle cx="9" cy="7" r="2"/></svg>
+        </div>
+        Family Owned
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 9l6 6L17 3"/></svg>
+        </div>
+        Free Estimates
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="8"/><path d="M9 5v4l3 2"/></svg>
+        </div>
+        24/7 Emergency
+      </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- ═══════════════════════════════════ SERVICES ═══════════════════════════════════ -->
 <section class="services" id="services">
-  <div class="section-label">What We Do</div>
-  <h2 class="section-title">Our Services</h2>
-  <div class="services-grid">
-    <div class="service-card">
-      <div class="service-icon red">
-        <svg width="24" height="24" fill="none" stroke="white" stroke-width="2"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
-      </div>
-      <h3>AC Repair</h3>
-      <p>Fast diagnostics and repair for all makes and models. We get your system running right.</p>
+  <div class="container">
+    <div class="services-header reveal">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-subtitle">Comprehensive HVAC and refrigeration solutions for homes and businesses across Southwest Florida.</p>
     </div>
-    <div class="service-card">
-      <div class="service-icon blue">
-        <svg width="24" height="24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></svg>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <div class="service-icon-wrap red">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+        </div>
+        <h3>AC Repair</h3>
+        <p>Fast, accurate diagnostics for all makes and models. We identify the root cause and fix it right the first time — no guesswork, no upsells.</p>
       </div>
-      <h3>New Installation</h3>
-      <p>Energy-efficient systems sized right for your space with professional installation and warranties.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon navy">
-        <svg width="24" height="24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+
+      <div class="service-card reveal">
+        <div class="service-icon-wrap blue">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></svg>
+        </div>
+        <h3>New Installation</h3>
+        <p>Energy-efficient systems precisely sized for your space. Professional installation backed by manufacturer warranties and our satisfaction guarantee.</p>
       </div>
-      <h3>Maintenance</h3>
-      <p>Regular tune-ups to keep your system at peak efficiency, saving money and extending equipment life.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-icon mix">
-        <svg width="24" height="24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M6 6V4a2 2 0 012-2h8a2 2 0 012 2v2"/><path d="M12 12v2"/></svg>
+
+      <div class="service-card reveal">
+        <div class="service-icon-wrap blue">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <h3>Maintenance &amp; Tune-Ups</h3>
+        <p>Preventive maintenance that extends equipment life and keeps energy bills low. Regular tune-ups catch small problems before they become expensive ones.</p>
       </div>
-      <h3>Refrigeration</h3>
-      <p>Commercial refrigeration installation, repair, and maintenance for restaurants and businesses.</p>
+
+      <div class="service-card reveal">
+        <div class="service-icon-wrap red">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M6 6V4a2 2 0 012-2h8a2 2 0 012 2v2"/><path d="M12 12v2"/></svg>
+        </div>
+        <h3>Commercial Refrigeration</h3>
+        <p>Walk-in coolers, freezers, display cases, and ice machines. Installation, repair, and maintenance for restaurants, stores, and businesses.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon-wrap blue">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg>
+        </div>
+        <h3>Duct Work</h3>
+        <p>Duct design, installation, repair, and sealing. Properly sealed ductwork means better airflow, even temperatures, and lower energy costs throughout your space.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon-wrap red">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>24/7 Emergency Service</h3>
+        <p>AC emergencies don't wait for business hours — neither do we. Call any time for urgent repairs and get your comfort restored fast.</p>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- QUOTE FORM -->
+<!-- ═══════════════════════════════════ WHY CHOOSE US ═══════════════════════════════════ -->
+<section class="why-section" id="why">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Why MBR</div>
+      <h2 class="section-title">Why Homeowners Choose Us</h2>
+      <p class="section-subtitle">We're not the biggest HVAC company in Florida — we're the one your neighbors keep recommending.</p>
+    </div>
+
+    <div class="why-grid reveal">
+      <div class="stat-card">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">2K+</div>
+        <div class="stat-label">Jobs Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">4.9</div>
+        <div class="stat-label">Star Rating</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+    </div>
+
+    <div class="why-features reveal">
+      <div class="why-feature">
+        <div class="why-feature-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1C5.7 1 3 3.7 3 7c0 5 6 10 6 10s6-5 6-10c0-3.3-2.7-6-6-6z"/><circle cx="9" cy="7" r="2"/></svg>
+        </div>
+        <div>
+          <h4>Family Owned &amp; Operated</h4>
+          <p>We treat every home like it's our own. No call centers, no runaround — just real people who care about doing the job right.</p>
+        </div>
+      </div>
+      <div class="why-feature">
+        <div class="why-feature-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="16" height="12" rx="2"/><path d="M2 8h16"/></svg>
+        </div>
+        <div>
+          <h4>Transparent Pricing</h4>
+          <p>Upfront quotes with no hidden fees. You'll know exactly what you're paying before any work begins.</p>
+        </div>
+      </div>
+      <div class="why-feature">
+        <div class="why-feature-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 1l2.5 5 5.5.8-4 3.9.9 5.5-4.9-2.6-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+        </div>
+        <div>
+          <h4>Licensed &amp; Insured</h4>
+          <p>Fully licensed, bonded, and insured for your protection. We meet every state and local requirement.</p>
+        </div>
+      </div>
+      <div class="why-feature">
+        <div class="why-feature-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 10l7 7L19 3"/></svg>
+        </div>
+        <div>
+          <h4>Satisfaction Guaranteed</h4>
+          <p>We stand behind every job. If you're not happy with our work, we'll make it right — guaranteed.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SERVICE AREAS ═══════════════════════════════════ -->
+<section class="areas-section" id="areas">
+  <div class="container">
+    <div class="areas-header reveal">
+      <div class="section-label">Coverage</div>
+      <h2 class="section-title">Areas We Serve</h2>
+      <p class="section-subtitle">Proudly serving communities throughout Southwest Florida with prompt, reliable HVAC service.</p>
+    </div>
+    <div class="areas-grid reveal">
+      <div class="area-card">
+        <svg class="area-pin" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1C5.7 1 3 3.7 3 7c0 5 6 10 6 10s6-5 6-10c0-3.3-2.7-6-6-6z"/><circle cx="9" cy="7" r="2"/></svg>
+        <span>Fort Myers</span>
+      </div>
+      <div class="area-card">
+        <svg class="area-pin" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1C5.7 1 3 3.7 3 7c0 5 6 10 6 10s6-5 6-10c0-3.3-2.7-6-6-6z"/><circle cx="9" cy="7" r="2"/></svg>
+        <span>Cape Coral</span>
+      </div>
+      <div class="area-card">
+        <svg class="area-pin" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1C5.7 1 3 3.7 3 7c0 5 6 10 6 10s6-5 6-10c0-3.3-2.7-6-6-6z"/><circle cx="9" cy="7" r="2"/></svg>
+        <span>Naples</span>
+      </div>
+      <div class="area-card">
+        <svg class="area-pin" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1C5.7 1 3 3.7 3 7c0 5 6 10 6 10s6-5 6-10c0-3.3-2.7-6-6-6z"/><circle cx="9" cy="7" r="2"/></svg>
+        <span>Bonita Springs</span>
+      </div>
+      <div class="area-card">
+        <svg class="area-pin" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1C5.7 1 3 3.7 3 7c0 5 6 10 6 10s6-5 6-10c0-3.3-2.7-6-6-6z"/><circle cx="9" cy="7" r="2"/></svg>
+        <span>Lehigh Acres</span>
+      </div>
+      <div class="area-card">
+        <svg class="area-pin" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1C5.7 1 3 3.7 3 7c0 5 6 10 6 10s6-5 6-10c0-3.3-2.7-6-6-6z"/><circle cx="9" cy="7" r="2"/></svg>
+        <span>Estero</span>
+      </div>
+      <div class="area-card">
+        <svg class="area-pin" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1C5.7 1 3 3.7 3 7c0 5 6 10 6 10s6-5 6-10c0-3.3-2.7-6-6-6z"/><circle cx="9" cy="7" r="2"/></svg>
+        <span>Marco Island</span>
+      </div>
+      <div class="area-card">
+        <svg class="area-pin" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1C5.7 1 3 3.7 3 7c0 5 6 10 6 10s6-5 6-10c0-3.3-2.7-6-6-6z"/><circle cx="9" cy="7" r="2"/></svg>
+        <span>Sanibel</span>
+      </div>
+      <div class="area-card">
+        <svg class="area-pin" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1C5.7 1 3 3.7 3 7c0 5 6 10 6 10s6-5 6-10c0-3.3-2.7-6-6-6z"/><circle cx="9" cy="7" r="2"/></svg>
+        <span>Fort Myers Beach</span>
+      </div>
+      <div class="area-card">
+        <svg class="area-pin" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 1C5.7 1 3 3.7 3 7c0 5 6 10 6 10s6-5 6-10c0-3.3-2.7-6-6-6z"/><circle cx="9" cy="7" r="2"/></svg>
+        <span>Immokalee</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ TESTIMONIALS ═══════════════════════════════════ -->
+<section class="testimonials-section" id="reviews">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Reviews</div>
+      <h2 class="section-title">What Our Customers Say</h2>
+      <p class="section-subtitle">Don't take our word for it — hear from homeowners and businesses we've helped.</p>
+    </div>
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+        </div>
+        <blockquote>"MBR came out the same day we called. The technician was professional, explained everything clearly, and had our AC running perfectly within an hour. Best HVAC experience we've had in Florida."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">JR</div>
+          <div>
+            <div class="testimonial-name">James R.</div>
+            <div class="testimonial-location">Fort Myers, FL</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+        </div>
+        <blockquote>"We needed a full system replacement for our restaurant's walk-in cooler. MBR handled everything — permits, installation, cleanup. They showed up when they said they would and charged exactly what they quoted."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">MT</div>
+          <div>
+            <div class="testimonial-name">Maria T.</div>
+            <div class="testimonial-location">Cape Coral, FL</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+        </div>
+        <blockquote>"Honest and dependable — that's rare these days. They've maintained our home AC for three years now. Always on time, always fair, and our system runs better than when it was brand new."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">DK</div>
+          <div>
+            <div class="testimonial-name">David K.</div>
+            <div class="testimonial-location">Naples, FL</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ EMERGENCY BANNER ═══════════════════════════════════ -->
+<section class="emergency-banner">
+  <div class="container">
+    <div class="emergency-inner reveal">
+      <div class="emergency-text">
+        <h2>AC Emergency? We're Here 24/7.</h2>
+        <p>No overtime charges, no voicemail. A real technician answers every call.</p>
+      </div>
+      <a href="tel:+12394409425" class="emergency-cta">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 11.2A10.3 10.3 0 011 1l2.5-.5L5.8 4l-2 2.3a11 11 0 005 5L11 9.2l3.5 2.3z"/></svg>
+        (239) 440-9425
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ FAQ ═══════════════════════════════════ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="faq-header reveal" style="text-align: center;">
+      <div class="section-label" style="justify-content: center;">
+        <span style="display: none;"></span>FAQ
+      </div>
+      <h2 class="section-title">Common Questions</h2>
+      <p class="section-subtitle" style="margin: 0 auto;">Quick answers to the things our customers ask most.</p>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          How quickly can you get to my home for a repair?
+          <svg class="faq-chevron" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7.5l5 5 5-5"/></svg>
+        </button>
+        <div class="faq-answer" aria-hidden="true">
+          <div class="faq-answer-inner">For standard repairs, we typically offer same-day or next-day service. For emergencies, we dispatch a technician immediately — 24 hours a day, 7 days a week. Most emergency calls in our service area are addressed within 1–2 hours.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          How much does a new AC system cost?
+          <svg class="faq-chevron" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7.5l5 5 5-5"/></svg>
+        </button>
+        <div class="faq-answer" aria-hidden="true">
+          <div class="faq-answer-inner">Every home is different. Costs depend on your home's size, ductwork condition, desired efficiency rating, and the system brand. We provide free in-home estimates with upfront pricing — no surprises. We also offer financing options to keep your investment manageable.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          How often should I have my AC serviced?
+          <svg class="faq-chevron" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7.5l5 5 5-5"/></svg>
+        </button>
+        <div class="faq-answer" aria-hidden="true">
+          <div class="faq-answer-inner">We recommend professional maintenance at least once a year — ideally in the spring before Florida's heavy cooling season. Regular tune-ups catch small issues early, extend your system's lifespan, and keep energy bills low. Many customers opt for our twice-yearly maintenance plan.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          Do you offer financing for new installations?
+          <svg class="faq-chevron" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7.5l5 5 5-5"/></svg>
+        </button>
+        <div class="faq-answer" aria-hidden="true">
+          <div class="faq-answer-inner">Yes. We understand that a new HVAC system is a significant investment. We offer flexible financing options with competitive rates to help make it affordable. Ask about our current promotions when you schedule your free estimate.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          What brands do you install and repair?
+          <svg class="faq-chevron" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7.5l5 5 5-5"/></svg>
+        </button>
+        <div class="faq-answer" aria-hidden="true">
+          <div class="faq-answer-inner">We work with all major HVAC brands including Carrier, Trane, Lennox, Rheem, Goodman, Daikin, and more. Our technicians are trained and certified to service virtually any make and model. For new installations, we'll help you choose the best system for your needs and budget.</div>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">
+          How do I know if I need a repair or a full replacement?
+          <svg class="faq-chevron" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7.5l5 5 5-5"/></svg>
+        </button>
+        <div class="faq-answer" aria-hidden="true">
+          <div class="faq-answer-inner">General rule of thumb: if your system is under 10 years old and the repair cost is less than half the price of a new unit, repairing usually makes sense. If it's older, requires frequent repairs, or uses R-22 refrigerant (phased out), replacement is often the smarter long-term investment. We'll give you an honest assessment either way.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ QUOTE FORM ═══════════════════════════════════ -->
 <section class="quote-section" id="quote">
-  <div class="quote-inner">
-    <div class="section-label">Get Started</div>
-    <h2 class="section-title">Request a Free Quote</h2>
-    <p class="section-sub">Tell us about your project and we'll get back to you within 24 hours.</p>
+  <div class="container">
+    <div class="quote-wrapper">
 
-    <form id="quoteForm" class="form-grid" action="https://formsubmit.co/info@mbracfl.com" method="POST">
-      <!-- REPLACE YOUR_EMAIL_HERE above with your real email -->
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_subject" value="New Quote Request — MBR AC Website">
-      <input type="hidden" name="_template" value="table">
+      <div class="quote-info reveal">
+        <div class="section-label">Get Started</div>
+        <h2 class="section-title">Request a Free Quote</h2>
+        <p class="section-subtitle">Tell us about your project and we'll get back to you within 24 hours with a no-obligation estimate.</p>
+        <ul class="quote-benefits">
+          <li>
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 10l6 6L19 3"/></svg>
+            100% free — no obligation
+          </li>
+          <li>
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 10l6 6L19 3"/></svg>
+            Response within 24 hours
+          </li>
+          <li>
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 10l6 6L19 3"/></svg>
+            Transparent, upfront pricing
+          </li>
+          <li>
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 10l6 6L19 3"/></svg>
+            Licensed &amp; insured technicians
+          </li>
+          <li>
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 10l6 6L19 3"/></svg>
+            Financing options available
+          </li>
+        </ul>
+      </div>
 
-      <div class="form-group">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" placeholder="John Smith" required>
-      </div>
-      <div class="form-group">
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="john@example.com" required>
-      </div>
-      <div class="form-group">
-        <label for="service">Service Needed</label>
-        <select id="service" name="service" required>
-          <option value="" disabled selected>Select a service</option>
-          <option value="AC Repair">AC Repair</option>
-          <option value="New AC Installation">New AC Installation</option>
-          <option value="AC Maintenance">AC Maintenance / Tune-Up</option>
-          <option value="Refrigeration">Refrigeration Services</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-      <div class="form-group full">
-        <label for="address">Service Address</label>
-        <input type="text" id="address" name="address" placeholder="123 Main St, City, FL" required>
-      </div>
-      <div class="form-group full">
-        <label for="details">Project Details</label>
-        <textarea id="details" name="details" placeholder="Tell us what's going on — system type, age, symptoms, etc."></textarea>
-      </div>
-      <div class="form-group full">
-        <button type="submit" class="submit-btn">Submit Quote Request</button>
-      </div>
-    </form>
+      <div class="quote-form-card reveal">
+        <form id="quoteForm" class="form-grid" action="https://formsubmit.co/info@mbracfl.com" method="POST">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_subject" value="New Quote Request — MBR AC Website">
+          <input type="hidden" name="_template" value="table">
 
-    <div class="form-success" id="formSuccess">
-      <h3>✓ Request Received!</h3>
-      <p>We'll be in touch within 24 hours. Thanks for choosing MBR Air Conditioning.</p>
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="John Smith" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(239) 555-0123" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="service">Service Needed</label>
+            <select id="service" name="service" required>
+              <option value="" disabled selected>Select a service</option>
+              <option value="AC Repair">AC Repair</option>
+              <option value="New AC Installation">New AC Installation</option>
+              <option value="AC Maintenance">AC Maintenance / Tune-Up</option>
+              <option value="Refrigeration">Commercial Refrigeration</option>
+              <option value="Duct Work">Duct Work</option>
+              <option value="Emergency Service">Emergency Service</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label for="address">Service Address</label>
+            <input type="text" id="address" name="address" placeholder="123 Main St, Fort Myers, FL 33901" required>
+          </div>
+          <div class="form-group full">
+            <label for="preferred_time">Preferred Contact Time</label>
+            <select id="preferred_time" name="preferred_time">
+              <option value="" disabled selected>When should we call?</option>
+              <option value="Morning (8am-12pm)">Morning (8am–12pm)</option>
+              <option value="Afternoon (12pm-5pm)">Afternoon (12pm–5pm)</option>
+              <option value="Evening (5pm-7pm)">Evening (5pm–7pm)</option>
+              <option value="Anytime">Anytime</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label for="details">Project Details</label>
+            <textarea id="details" name="details" placeholder="Tell us what's going on — system type, age, symptoms, etc."></textarea>
+          </div>
+          <div class="form-group full">
+            <button type="submit" class="submit-btn">Submit Quote Request</button>
+          </div>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <div class="form-success-icon">
+            <svg width="28" height="28" fill="none" stroke="var(--blue)" stroke-width="2.5"><path d="M5 14l6 6L25 6"/></svg>
+          </div>
+          <h3>Request Received</h3>
+          <p>We'll be in touch within 24 hours. Thanks for choosing MBR Air Conditioning &amp; Refrigeration.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ═══════════════════════════════════ FOOTER ═══════════════════════════════════ -->
 <footer>
-  <div class="footer-brand">
-    <img src="Logo2.png" alt="MBR">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand-col">
+        <a href="#" class="logo-area">
+          <img src="Logo2.png" alt="MBR Air Conditioning & Refrigeration">
+          <div class="logo-text">
+            MBR AC &amp; Refrigeration
+            <small>FL Corp</small>
+          </div>
+        </a>
+        <p>Family-owned air conditioning and refrigeration company proudly serving Southwest Florida. Licensed, insured, and committed to honest service.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">AC Repair</a></li>
+          <li><a href="#services">New Installation</a></li>
+          <li><a href="#services">Maintenance</a></li>
+          <li><a href="#services">Refrigeration</a></li>
+          <li><a href="#services">Duct Work</a></li>
+          <li><a href="#services">Emergency 24/7</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Service Areas</h4>
+        <ul>
+          <li><a href="#areas">Fort Myers</a></li>
+          <li><a href="#areas">Cape Coral</a></li>
+          <li><a href="#areas">Naples</a></li>
+          <li><a href="#areas">Bonita Springs</a></li>
+          <li><a href="#areas">Lehigh Acres</a></li>
+          <li><a href="#areas">Estero</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="contact-item">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 11.2A10.3 10.3 0 011 1l2.5-.5L5.8 4l-2 2.3a11 11 0 005 5L11 9.2l3.5 2.3z"/></svg>
+          <a href="tel:+12394409425">(239) 440-9425</a>
+        </div>
+        <div class="contact-item">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="14" height="10" rx="2"/><path d="M1 3l7 5 7-5"/></svg>
+          <a href="mailto:info@mbracfl.com">info@mbracfl.com</a>
+        </div>
+        <div class="contact-item">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="7"/><path d="M8 4v4l3 2"/></svg>
+          <span>Mon–Sat: 7am–7pm<br>Emergency: 24/7</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 MBR Air Conditioning &amp; Refrigeration FL Corp. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
   </div>
-  <!-- REPLACE with your actual phone number -->
-  <div class="footer-phone"><a href="tel:+15551234567">(239) 440-9425</a></div>
-  <p>&copy; 2026 MBR Air Conditioning &amp; Refrigeration FL Corp. All rights reserved.</p>
-  <p style="margin-top: 4px;">Licensed &amp; Insured · Serving Southwest Florida</p>
 </footer>
+
+</div><!-- /page-content -->
+
+<!-- ═══════════════════════════════════ SCRIPTS ═══════════════════════════════════ -->
+<script>
+  // Scroll past logo banner on load so hero is visible first
+  // Users can scroll up to discover the logo
+  const pageContent = document.querySelector('.page-content');
+  if (pageContent && window.scrollY === 0) {
+    window.scrollTo({ top: pageContent.offsetTop, behavior: 'instant' });
+  }
+
+  // Mobile menu toggle
+  const mobileToggle = document.getElementById('mobileToggle');
+  const navLinks = document.getElementById('navLinks');
+  mobileToggle.addEventListener('click', () => {
+    mobileToggle.classList.toggle('active');
+    navLinks.classList.toggle('open');
+  });
+  // Close mobile menu when a link is clicked
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileToggle.classList.remove('active');
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // Nav scroll effect + logo banner parallax
+  const mainNav = document.getElementById('mainNav');
+  const logoBanner = document.querySelector('.logo-banner');
+  const logoBannerImg = logoBanner ? logoBanner.querySelector('img') : null;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    mainNav.classList.toggle('scrolled', y > 40);
+
+    // Parallax: fade and scale the logo as user scrolls toward the hero
+    if (logoBannerImg) {
+      const bannerH = logoBanner.offsetHeight;
+      const progress = Math.min(y / bannerH, 1);
+      logoBannerImg.style.opacity = 1 - progress * 0.7;
+      logoBannerImg.style.transform = 'scale(' + (1 - progress * 0.15) + ') translateY(' + (y * 0.15) + 'px)';
+    }
+  }, { passive: true });
+
+  // Scroll reveal (IntersectionObserver)
+  const revealElements = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        // Stagger siblings
+        const siblings = entry.target.parentElement.querySelectorAll('.reveal');
+        let delay = 0;
+        siblings.forEach((sib, i) => {
+          if (sib === entry.target) delay = i * 80;
+        });
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  revealElements.forEach(el => revealObserver.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const answer = item.querySelector('.faq-answer');
+      const isOpen = item.classList.contains('open');
+
+      // Close all others
+      document.querySelectorAll('.faq-item.open').forEach(openItem => {
+        if (openItem !== item) {
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-answer').style.maxHeight = null;
+          openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          openItem.querySelector('.faq-answer').setAttribute('aria-hidden', 'true');
+        }
+      });
+
+      if (isOpen) {
+        item.classList.remove('open');
+        answer.style.maxHeight = null;
+        btn.setAttribute('aria-expanded', 'false');
+        answer.setAttribute('aria-hidden', 'true');
+      } else {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded', 'true');
+        answer.setAttribute('aria-hidden', 'false');
+      }
+    });
+  });
+
+  // Form submission handling
+  const quoteForm = document.getElementById('quoteForm');
+  const formSuccess = document.getElementById('formSuccess');
+  quoteForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch(this.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    }).then(response => {
+      if (response.ok) {
+        quoteForm.style.display = 'none';
+        formSuccess.style.display = 'block';
+      }
+    }).catch(() => {
+      // Fallback: submit normally
+      this.submit();
+    });
+  });
+</script>
 
 </body>
 </html>
