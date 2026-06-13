@@ -1,0 +1,20 @@
+# Cloudflare Worker config for the MBR AC chat assistant.
+# Deploy with:  npx wrangler deploy   (run from the chatbot/ folder)
+# See README.md in this folder for the full walkthrough.
+
+name = "mbr-ac-chat"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+[vars]
+# The model the chatbot uses. claude-opus-4-8 is the most capable.
+# For lower cost on a high-traffic site, switch to "claude-haiku-4-5"
+# (~5x cheaper) — quality is still excellent for HVAC Q&A and lead capture.
+CHAT_MODEL = "claude-opus-4-8"
+
+# Lock the chat endpoint to your live site once deployed (prevents other
+# sites from using your API key). Use your real domain.
+ALLOWED_ORIGIN = "https://mbracfl.com"
+
+# NOTE: ANTHROPIC_API_KEY is a SECRET — do NOT put it here.
+# Set it once with:  npx wrangler secret put ANTHROPIC_API_KEY
