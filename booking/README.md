@@ -73,11 +73,17 @@ Until you set this, it stays in the $0 demo mode.
 
 ## See your bookings
 
-```
-https://mbr-ac-booking.<sub>.workers.dev/bookings?key=YOUR_ADMIN_KEY
-```
+Open **`admin.html`** from your live site — e.g. `https://mbracfl.com/admin.html`.
+Enter your Worker URL and `ADMIN_KEY` once (saved in your browser only) and it shows
+upcoming bookings grouped by day, with click-to-call phone links. The page is
+`noindex` and loads nothing without the correct key.
 
-Returns upcoming bookings as JSON. (A simple admin page can be added later.)
+> **CORS note:** open `admin.html` from the **same domain** set in the Worker's
+> `ALLOWED_ORIGIN` (e.g. your live `mbracfl.com`). Opening it from a different
+> origin (or `file://`) will be blocked by the browser. While testing, you can
+> temporarily set `ALLOWED_ORIGIN = "*"` in `wrangler.toml` and redeploy.
+
+The raw JSON is also available at `/bookings?key=YOUR_ADMIN_KEY` if you prefer.
 
 ---
 
