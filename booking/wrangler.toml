@@ -1,0 +1,28 @@
+# Cloudflare Worker config for the MBR booking backend.
+# Deploy with:  npx wrangler deploy   (run from the booking/ folder)
+# See README.md in this folder for the full walkthrough (D1 + secrets).
+
+name = "mbr-ac-booking"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+[vars]
+# Lock the endpoint to your live site once deployed.
+ALLOWED_ORIGIN = "https://mbracfl.com"
+
+# Email "from" address for confirmations (must be on a Resend-verified domain).
+# Leave blank to skip emails entirely (bookings still save to the database).
+MAIL_FROM = ""
+# Where new-booking notifications are sent.
+MAIL_TO = "info@mbracfl.com"
+
+# D1 database binding. Create the DB first (see README), then paste its
+# database_id below — wrangler also prints this block when you run `d1 create`.
+[[d1_databases]]
+binding = "DB"
+database_name = "mbr-bookings"
+database_id = "PASTE_YOUR_D1_DATABASE_ID_HERE"
+
+# SECRETS (do NOT put these here) — set with `npx wrangler secret put NAME`:
+#   ADMIN_KEY        protects GET /bookings
+#   RESEND_API_KEY   enables email confirmations (optional)

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Bookings Admin · MBR AC &amp; Refrigeration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-deep: #07090F; --bg-primary: #0B0E17; --bg-card: #111827; --bg-card-hover: #1A2235;
+      --bg-glass-border: rgba(255,255,255,0.06);
+      --blue: #3B6FF5; --blue-light: #5B8BFF; --red: #D41920; --green: #22C55E;
+      --white: #FFFFFF; --text-primary: #F1F5F9; --text-secondary: #94A3B8; --text-muted: #64748B;
+      --radius-sm: 8px; --radius: 12px; --radius-lg: 20px;
+      --font-display: 'Montserrat', sans-serif; --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+    body { font-family: var(--font-body); background: var(--bg-deep); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+    .brand { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; color: var(--white); }
+    .brand small { display: block; font-family: var(--font-body); font-size: 0.65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); }
+    .brand a { color: inherit; text-decoration: none; }
+    .head-actions { display: flex; gap: 0.6rem; align-items: center; }
+
+    .btn { font-family: var(--font-display); font-weight: 700; font-size: 0.9rem; border: none; border-radius: var(--radius-sm); padding: 11px 20px; cursor: pointer; transition: transform .2s, box-shadow .2s, background .2s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-primary { background: var(--red); color: var(--white); }
+    .btn-primary:hover { transform: translateY(-1px); background: #EF4444; }
+    .btn-ghost { background: rgba(255,255,255,0.05); color: var(--text-secondary); border: 1px solid var(--bg-glass-border); }
+    .btn-ghost:hover { color: var(--white); }
+
+    .card { background: var(--bg-card); border: 1px solid var(--bg-glass-border); border-radius: var(--radius-lg); padding: 2rem; }
+    .setup { max-width: 520px; margin: 3rem auto; }
+    .setup h1 { font-family: var(--font-display); font-size: 1.4rem; color: var(--white); margin-bottom: 0.4rem; }
+    .setup p { color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 1.5rem; }
+    .field { margin-bottom: 1.1rem; }
+    .field label { display: block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); margin-bottom: 6px; }
+    .field input { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-sm); padding: 12px 14px; color: var(--white); font-family: var(--font-body); font-size: 0.95rem; outline: none; }
+    .field input:focus { border-color: var(--blue); }
+
+    .stats-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .stat { background: var(--bg-card); border: 1px solid var(--bg-glass-border); border-radius: var(--radius); padding: 1rem 1.4rem; min-width: 130px; }
+    .stat .n { font-family: var(--font-display); font-weight: 800; font-size: 1.7rem; color: var(--blue); line-height: 1; }
+    .stat .l { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+    .day-group { margin-bottom: 1.75rem; }
+    .day-head { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--white); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 10px; }
+    .day-head .pill { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; color: var(--blue); background: rgba(59,111,245,0.1); border: 1px solid rgba(59,111,245,0.2); border-radius: 50px; padding: 2px 10px; }
+
+    .bk-row { background: var(--bg-card); border: 1px solid var(--bg-glass-border); border-radius: var(--radius); padding: 1.1rem 1.25rem; margin-bottom: 0.6rem; display: grid; grid-template-columns: 150px 1fr; gap: 0.5rem 1.25rem; transition: border-color .2s; }
+    .bk-row:hover { border-color: rgba(59,111,245,0.18); }
+    .bk-window { font-family: var(--font-display); font-weight: 700; color: var(--white); font-size: 0.95rem; }
+    .bk-service { font-size: 0.78rem; color: var(--blue-light); margin-top: 4px; }
+    .bk-detail { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; align-items: baseline; }
+    .bk-name { font-weight: 700; color: var(--white); }
+    .bk-detail a { color: var(--text-secondary); text-decoration: none; border-bottom: 1px dotted var(--text-muted); }
+    .bk-detail a:hover { color: var(--blue-light); }
+    .bk-meta { font-size: 0.85rem; color: var(--text-secondary); }
+    .bk-notes { grid-column: 1 / -1; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--bg-glass-border); padding-top: 0.6rem; margin-top: 0.3rem; }
+    .bk-notes strong { color: var(--text-secondary); }
+
+    .state { text-align: center; padding: 3rem 1rem; color: var(--text-secondary); }
+    .state.error { color: #FCA5A5; }
+    .muted { color: var(--text-muted); font-size: 0.82rem; }
+    .hidden { display: none !important; }
+    @media (max-width: 600px) { .bk-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <a href="index.html">MBR AC &amp; Refrigeration<small>Bookings Admin</small></a>
+    </div>
+    <div class="head-actions" id="headActions" hidden>
+      <button class="btn btn-ghost" id="refreshBtn">↻ Refresh</button>
+      <button class="btn btn-ghost" id="settingsBtn">Settings</button>
+    </div>
+  </header>
+
+  <!-- SETUP -->
+  <div class="card setup" id="setup">
+    <h1>Connect to your bookings</h1>
+    <p>Enter your booking Worker URL and admin key. They're saved in this browser only — never shared.</p>
+    <div class="field">
+      <label for="ep">Booking endpoint URL</label>
+      <input id="ep" type="url" placeholder="https://mbr-ac-booking.your-subdomain.workers.dev" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="key">Admin key</label>
+      <input id="key" type="password" placeholder="your ADMIN_KEY" autocomplete="off">
+    </div>
+    <button class="btn btn-primary" id="connectBtn">View Bookings</button>
+    <p class="muted" style="margin-top:1rem;">The admin key is the value you set with <code>wrangler secret put ADMIN_KEY</code> when deploying <code>/booking</code>. Even though this page is public, no booking data loads without the correct key.</p>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dash" hidden>
+    <div class="stats-row" id="statsRow"></div>
+    <div id="list"></div>
+  </div>
+
+</div>
+
+<script>
+  const WINDOWS = ['7:00–9:00 AM','9:00–11:00 AM','11:00 AM–1:00 PM','1:00–3:00 PM','3:00–5:00 PM','5:00–7:00 PM'];
+  const DOW = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  const els = {
+    setup: document.getElementById('setup'),
+    dash: document.getElementById('dash'),
+    ep: document.getElementById('ep'),
+    key: document.getElementById('key'),
+    connect: document.getElementById('connectBtn'),
+    refresh: document.getElementById('refreshBtn'),
+    settings: document.getElementById('settingsBtn'),
+    headActions: document.getElementById('headActions'),
+    list: document.getElementById('list'),
+    stats: document.getElementById('statsRow'),
+  };
+
+  const LS_EP = 'mbr_admin_endpoint', LS_KEY = 'mbr_admin_key';
+
+  // Prefill from saved settings.
+  els.ep.value = localStorage.getItem(LS_EP) || '';
+  els.key.value = localStorage.getItem(LS_KEY) || '';
+  if (els.ep.value && els.key.value) load();
+
+  els.connect.addEventListener('click', function () {
+    const ep = els.ep.value.trim().replace(/\/+$/, '');
+    const key = els.key.value.trim();
+    if (!ep || !key) { alert('Please enter both the endpoint URL and admin key.'); return; }
+    localStorage.setItem(LS_EP, ep);
+    localStorage.setItem(LS_KEY, key);
+    load();
+  });
+  els.refresh.addEventListener('click', load);
+  els.settings.addEventListener('click', function () {
+    els.dash.hidden = true; els.headActions.hidden = true; els.setup.hidden = false;
+  });
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function telHref(p) { return 'tel:' + String(p || '').replace(/[^0-9+]/g, ''); }
+
+  function showState(msg, isError) {
+    els.list.innerHTML = '<div class="state' + (isError ? ' error' : '') + '">' + esc(msg) + '</div>';
+    els.stats.innerHTML = '';
+  }
+
+  async function load() {
+    const ep = localStorage.getItem(LS_EP);
+    const key = localStorage.getItem(LS_KEY);
+    if (!ep || !key) { els.setup.hidden = false; return; }
+
+    els.setup.hidden = true; els.dash.hidden = false; els.headActions.hidden = false;
+    showState('Loading bookings…', false);
+
+    try {
+      const r = await fetch(ep + '/bookings?key=' + encodeURIComponent(key));
+      if (r.status === 401) { showState('Unauthorized — check your admin key (Settings).', true); return; }
+      if (!r.ok) { showState('Server error (' + r.status + '). Check the endpoint URL.', true); return; }
+      const data = await r.json().catch(function () { return {}; });
+      render(Array.isArray(data.bookings) ? data.bookings : []);
+    } catch (e) {
+      showState('Could not reach the booking service. Confirm the URL, and that the Worker\'s ALLOWED_ORIGIN matches this site\'s domain.', true);
+    }
+  }
+
+  function render(rows) {
+    // Sort by date then window.
+    rows.sort(function (a, b) {
+      return (a.slot_date + a.slot_window).localeCompare(b.slot_date + b.slot_window);
+    });
+
+    // Stats.
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const upcoming = rows.filter(function (r) { return r.slot_date >= todayStr; });
+    const todayCount = rows.filter(function (r) { return r.slot_date === todayStr; }).length;
+    els.stats.innerHTML =
+      stat(upcoming.length, 'Upcoming') +
+      stat(todayCount, 'Today') +
+      stat(rows.length, 'Total shown');
+
+    if (!rows.length) { showState('No bookings yet. New online bookings will appear here.', false); return; }
+
+    // Group by date.
+    const groups = {};
+    rows.forEach(function (r) { (groups[r.slot_date] = groups[r.slot_date] || []).push(r); });
+
+    let html = '';
+    Object.keys(groups).sort().forEach(function (date) {
+      const d = new Date(date + 'T00:00:00');
+      const label = DOW[d.getDay()] + ', ' + MON[d.getMonth()] + ' ' + d.getDate();
+      const isToday = date === todayStr;
+      html += '<div class="day-group"><div class="day-head">' + esc(label) +
+        (isToday ? '<span class="pill">Today</span>' : '') + '</div>';
+      groups[date].forEach(function (r) { html += row(r); });
+      html += '</div>';
+    });
+    els.list.innerHTML = html;
+  }
+
+  function stat(n, label) {
+    return '<div class="stat"><div class="n">' + n + '</div><div class="l">' + esc(label) + '</div></div>';
+  }
+
+  function row(r) {
+    const win = WINDOWS[r.slot_window] || ('Window ' + r.slot_window);
+    let h = '<div class="bk-row">';
+    h += '<div><div class="bk-window">' + esc(win) + '</div>' +
+         (r.service ? '<div class="bk-service">' + esc(r.service) + '</div>' : '') + '</div>';
+    h += '<div>';
+    h += '<div class="bk-detail"><span class="bk-name">' + esc(r.name) + '</span>' +
+         '<a href="' + telHref(r.phone) + '">' + esc(r.phone) + '</a>' +
+         (r.email ? '<a href="mailto:' + esc(r.email) + '">' + esc(r.email) + '</a>' : '') + '</div>';
+    h += '<div class="bk-meta">' + esc(r.address || '') + '</div>';
+    if (r.notes) h += '<div class="bk-notes"><strong>Notes:</strong> ' + esc(r.notes) + '</div>';
+    h += '</div></div>';
+    return h;
+  }
+</script>
+</body>
+</html>

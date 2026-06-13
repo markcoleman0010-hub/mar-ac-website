@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service | MBR Air Conditioning & Refrigeration FL Corp</title>
+  <meta name="description" content="Terms of Service for mbracfl.com — MBR Air Conditioning & Refrigeration FL Corp. Website use terms, content ownership, and disclaimers.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #07090F;
+      --bg-primary: #0B0E17;
+      --bg-card: #111827;
+      --bg-card-hover: #1A2235;
+      --bg-glass: rgba(255, 255, 255, 0.03);
+      --bg-glass-border: rgba(255, 255, 255, 0.06);
+
+      --blue: #3B6FF5;
+      --blue-light: #5B8BFF;
+      --blue-glow: rgba(59, 111, 245, 0.15);
+      --red: #D41920;
+      --red-light: #E8343B;
+      --red-glow: rgba(212, 25, 32, 0.25);
+
+      --white: #FFFFFF;
+      --text-primary: #F1F5F9;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+
+      --radius-sm: 8px;
+      --radius: 12px;
+      --radius-lg: 20px;
+
+      --font-display: 'Montserrat', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      background: var(--bg-deep);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Subtle grain overlay — matches index.html */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.018;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 200px 200px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(7, 9, 15, 0.95);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--bg-glass-border);
+      height: 76px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .logo-area {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+    }
+    .logo-area img {
+      height: 40px; width: auto;
+    }
+    .logo-text {
+      font-family: var(--font-display);
+      font-weight: 800; font-size: 1.2rem;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .logo-text small {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--white); }
+
+    /* ── PAGE HERO ── */
+    main { padding-top: 76px; }
+
+    .page-hero {
+      background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-deep) 100%);
+      border-bottom: 1px solid var(--bg-glass-border);
+      padding: 64px 2rem 56px;
+      text-align: center;
+    }
+    .page-hero-label {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--blue);
+      margin-bottom: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .page-hero-label::before,
+    .page-hero-label::after {
+      content: '';
+      width: 28px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), var(--blue));
+      display: inline-block;
+    }
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .page-hero .effective-date {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ── CONTENT ── */
+    .content-wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 56px 2rem 80px;
+    }
+
+    .attorney-note {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-glass-border);
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      margin-bottom: 2.75rem;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .policy-section {
+      margin-bottom: 2.75rem;
+    }
+    .policy-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--bg-glass-border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .policy-section h2::before {
+      content: '';
+      width: 4px;
+      height: 1.1rem;
+      background: linear-gradient(180deg, var(--blue), var(--red));
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .policy-section p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 0.85rem;
+    }
+    .policy-section p:last-child { margin-bottom: 0; }
+    .policy-section strong { color: var(--text-primary); }
+
+    .policy-section ul {
+      list-style: none;
+      margin: 0.5rem 0 0.85rem 0;
+      padding: 0;
+    }
+    .policy-section ul li {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      padding-left: 1.4rem;
+      position: relative;
+      margin-bottom: 0.3rem;
+    }
+    .policy-section ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 6px;
+      height: 6px;
+      background: var(--blue);
+      border-radius: 50%;
+    }
+
+    .policy-section a {
+      color: var(--blue-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .policy-section a:hover { color: var(--white); text-decoration: underline; }
+
+    .highlight-box {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-glass-border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin: 0.75rem 0 0.85rem;
+    }
+    .highlight-box p {
+      margin-bottom: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-glass-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+    .contact-row svg { color: var(--blue); flex-shrink: 0; }
+    .contact-row a {
+      color: var(--blue-light);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .contact-row a:hover { color: var(--white); }
+    .contact-card .contact-note {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 0 28px;
+      border-top: 1px solid var(--bg-glass-border);
+    }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+    .footer-bottom-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-bottom-links a {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-bottom-links a:hover { color: var(--text-secondary); }
+    .footer-bottom-links a.current { color: var(--blue-light); pointer-events: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .content-wrap { padding: 40px 1.25rem 60px; }
+      .page-hero { padding: 48px 1.25rem 40px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo-area">
+      <img src="Logo_No_Shadow.png" alt="MBR Air Conditioning & Refrigeration logo">
+      <div class="logo-text">
+        MBR AC &amp; Refrigeration
+        <small>FL Corp</small>
+      </div>
+    </a>
+    <a href="index.html" class="nav-back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      Back to site
+    </a>
+  </div>
+</nav>
+
+<main>
+  <div class="page-hero">
+    <div class="page-hero-label">Legal</div>
+    <h1>Terms of Service</h1>
+    <p class="effective-date">Effective Date: June 13, 2026</p>
+  </div>
+
+  <div class="content-wrap">
+
+    <p class="attorney-note">
+      These terms of service constitute a general informational template prepared for MBR Air
+      Conditioning &amp; Refrigeration FL Corp. We recommend having this document reviewed by a
+      licensed Florida attorney before relying on it as formal legal counsel.
+    </p>
+
+    <div class="policy-section">
+      <h2>Acceptance of Terms</h2>
+      <p>
+        By accessing or using <strong>mbracfl.com</strong> (the "Site"), you agree to be bound
+        by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not
+        use the Site.
+      </p>
+      <p>
+        These Terms govern your use of the Site only. They are not a service agreement or
+        contract for HVAC work — any actual services provided by MBR Air Conditioning &amp;
+        Refrigeration FL Corp are governed by a separate written estimate or service agreement.
+      </p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Informational Content — Not a Binding Quote</h2>
+      <p>
+        The content on this Site — including service descriptions, pricing references, and
+        example project costs — is provided for <strong>general informational purposes only</strong>.
+        Nothing on this Site constitutes a binding quote, offer, or contract for HVAC services.
+      </p>
+      <p>
+        Actual pricing, project scope, equipment selection, and terms of service are determined
+        on a job-by-job basis and confirmed only in a written estimate signed by an authorized
+        MBR representative. Until such a written estimate is accepted, no agreement for services
+        exists between you and MBR.
+      </p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Service Availability &amp; Response Times</h2>
+      <p>
+        We make every reasonable effort to be available during our normal business hours and to
+        respond to service requests and emergencies promptly. However:
+      </p>
+      <ul>
+        <li>
+          Service availability is subject to technician scheduling, demand, weather, and other
+          factors outside our control.
+        </li>
+        <li>
+          Any stated or advertised response times or emergency service windows are targets and
+          estimates, not guarantees.
+        </li>
+        <li>
+          We reserve the right to decline any service request at our discretion.
+        </li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>Intellectual Property</h2>
+      <p>
+        All content on this Site — including text, graphics, photographs, the MBR logo, service
+        descriptions, and the overall design — is the property of MBR Air Conditioning &amp;
+        Refrigeration FL Corp or its licensors and is protected by applicable copyright,
+        trademark, and other intellectual property laws.
+      </p>
+      <p>
+        You may view and print pages from the Site for your own personal, non-commercial use.
+        You may not reproduce, distribute, modify, publicly display, or create derivative works
+        from any Site content without our prior written permission.
+      </p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Your Responsibilities</h2>
+      <p>When you use this Site or submit information through our forms, you agree to:</p>
+      <ul>
+        <li>Provide accurate, current, and complete information in any form submissions</li>
+        <li>Use the Site only for lawful purposes</li>
+        <li>
+          Refrain from attempting to interfere with, damage, or disrupt the Site or its
+          underlying infrastructure
+        </li>
+        <li>
+          Refrain from submitting false, misleading, or fraudulent service requests
+        </li>
+      </ul>
+      <p>
+        You understand that if you provide inaccurate information — such as a wrong service
+        address or incorrect equipment details — it may affect our ability to provide an
+        accurate estimate or to schedule service appropriately.
+      </p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Third-Party Links &amp; Services</h2>
+      <p>
+        The Site may contain links to third-party websites or services (for example, review
+        platforms, financing partners, or mapping tools). These links are provided for your
+        convenience only. MBR does not control, endorse, or take responsibility for the content,
+        privacy practices, or availability of any third-party sites.
+      </p>
+      <p>
+        The Site also uses third-party services to operate (such as a form submission processor
+        and website analytics). Your use of those services is subject to their respective terms
+        and privacy policies.
+      </p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Disclaimer of Warranties</h2>
+      <p>
+        <strong>The Site is provided on an "as is" and "as available" basis</strong>, without
+        warranties of any kind, either express or implied. To the fullest extent permitted by
+        law, MBR Air Conditioning &amp; Refrigeration FL Corp disclaims all warranties,
+        including but not limited to:
+      </p>
+      <ul>
+        <li>Implied warranties of merchantability or fitness for a particular purpose</li>
+        <li>That the Site will be uninterrupted, error-free, or free of viruses or harmful code</li>
+        <li>
+          That information on the Site is complete, accurate, current, or applicable to your
+          specific situation
+        </li>
+      </ul>
+      <p>
+        This disclaimer applies to the website only. It does not limit any warranties that may
+        apply to HVAC services actually performed under a separate written agreement.
+      </p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Limitation of Liability</h2>
+      <p>
+        To the fullest extent permitted by applicable law, MBR Air Conditioning &amp;
+        Refrigeration FL Corp and its owners, employees, and agents shall not be liable for any
+        indirect, incidental, special, consequential, or punitive damages arising out of or
+        related to your use of — or inability to use — this Site, even if we have been advised
+        of the possibility of such damages.
+      </p>
+      <p>
+        This limitation applies to damages arising from reliance on Site content, from
+        interruptions to Site availability, and from errors or omissions in any Site content.
+        Our total liability to you for any claim arising from use of the Site shall not exceed
+        one hundred U.S. dollars ($100.00).
+      </p>
+      <p>
+        Some jurisdictions do not allow the exclusion or limitation of certain damages; in
+        those jurisdictions, our liability is limited to the greatest extent permitted by law.
+      </p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Governing Law</h2>
+      <p>
+        These Terms are governed by and construed in accordance with the laws of the
+        <strong>State of Florida</strong>, without regard to its conflict of law provisions.
+        Any disputes arising under these Terms shall be subject to the exclusive jurisdiction
+        of the state and federal courts located in Lee County, Florida.
+      </p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Changes to These Terms</h2>
+      <p>
+        We may update these Terms of Service from time to time. When we do, we will revise
+        the "Effective Date" at the top of this page. Your continued use of the Site after
+        any changes constitutes your acceptance of the updated Terms.
+      </p>
+      <p>
+        The current effective date is <strong>June 13, 2026</strong>.
+      </p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Contact Us</h2>
+      <p>
+        If you have questions about these Terms, please contact us:
+      </p>
+      <div class="contact-card">
+        <div class="contact-row">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.57 3.4 2 2 0 0 1 3.54 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.76a16 16 0 0 0 6.13 6.13l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <a href="tel:+12394409425">(239) 440-9425</a>
+        </div>
+        <div class="contact-row">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <a href="mailto:info@mbracfl.com">info@mbracfl.com</a>
+        </div>
+        <p class="contact-note">MBR Air Conditioning &amp; Refrigeration FL Corp — Southwest Florida</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <p>&copy; 2026 MBR Air Conditioning &amp; Refrigeration FL Corp. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html" class="current" aria-current="page">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

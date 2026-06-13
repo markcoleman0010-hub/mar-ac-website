@@ -41,6 +41,46 @@
   }
   </script>
 
+  <!-- ═══════════ SITE CONFIG (edit these two values) ═══════════ -->
+  <script>
+    // 1) Google Analytics 4 — paste your Measurement ID (looks like G-XXXXXXXXXX).
+    //    Get it free at analytics.google.com → Admin → Data Streams.
+    //    Leave blank to disable analytics.
+    window.MBR_GA4_ID = "";
+
+    // 2) Chat assistant endpoint — paste your Cloudflare Worker URL after deploying
+    //    the backend in /chatbot (see chatbot/README.md). Leave blank and the chat
+    //    widget gracefully directs visitors to call instead.
+    window.MBR_CHAT_ENDPOINT = "";
+
+    // 3) Booking endpoint — paste your Cloudflare Worker URL after deploying the
+    //    booking backend in /booking (see booking/README.md). Leave blank and the
+    //    scheduler runs in $0 demo mode: it emails confirmed requests to you and
+    //    you confirm the slot. Set this to enable real stored availability,
+    //    double-booking prevention, and automatic confirmations.
+    window.MBR_BOOKING_ENDPOINT = "";
+  </script>
+
+  <!-- Google Analytics 4 (loads only when an ID is set above) -->
+  <script>
+    (function () {
+      var id = window.MBR_GA4_ID;
+      if (!id) return;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', id);
+    })();
+    // Lightweight helper used across the page to record conversions.
+    window.mbrTrack = function (name, params) {
+      try { if (window.gtag) window.gtag('event', name, params || {}); } catch (e) {}
+    };
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1095,13 +1135,326 @@
       .trust-bar { flex-direction: column; gap: 1rem; }
       .footer-grid { grid-template-columns: 1fr; }
     }
+    /* ── SCHEDULE A VISIT ── */
+    .schedule-section { padding: 100px 0; position: relative; }
+    .schedule-header { text-align: center; margin-bottom: 3rem; }
+    .schedule-header .section-label { justify-content: center; }
+    .schedule-header .section-subtitle { margin: 0 auto; }
+    .schedule-wrap {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2rem;
+      align-items: stretch;
+    }
+    .schedule-card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .schedule-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .schedule-card > p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.75rem;
+    }
+    /* The booking-tool embed drops in here (Housecall Pro / Jobber / Calendly). */
+    #booking-embed { width: 100%; flex: 1; min-height: 0; }
+    .booking-placeholder {
+      border: 1.5px dashed rgba(59, 111, 245, 0.3);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      background: rgba(59, 111, 245, 0.03);
+    }
+    .booking-placeholder svg { color: var(--blue); margin-bottom: 1rem; }
+    .booking-placeholder p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .booking-steps {
+      list-style: none;
+      counter-reset: step;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    .booking-steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .booking-step-num {
+      counter-increment: step;
+      flex-shrink: 0;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--red));
+      color: var(--white);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.9rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .booking-step-num::before { content: counter(step); }
+    .schedule-cta-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: auto; }
+    .schedule-cta-row .btn-primary,
+    .schedule-cta-row .btn-outline { flex: 1; justify-content: center; min-width: 160px; }
+
+    /* ── BOOKING WIDGET ── */
+    .bk-label { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--white); margin: 0 0 0.75rem; }
+    .bk-step { margin-bottom: 1.5rem; }
+    .bk-days { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; }
+    .bk-day {
+      flex: 0 0 auto;
+      min-width: 64px;
+      padding: 10px 8px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--bg-glass-border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-secondary);
+      cursor: pointer;
+      text-align: center;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      font-family: var(--font-body);
+    }
+    .bk-day:hover { border-color: rgba(59,111,245,0.4); color: var(--text-primary); }
+    .bk-day.selected { border-color: var(--blue); background: rgba(59,111,245,0.12); color: var(--white); }
+    .bk-day .bk-dow { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+    .bk-day.selected .bk-dow { color: var(--blue-light); }
+    .bk-day .bk-dnum { display: block; font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; line-height: 1.2; }
+    .bk-day .bk-mon { display: block; font-size: 0.65rem; color: var(--text-muted); }
+    .bk-slots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .bk-slot {
+      padding: 11px 8px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--bg-glass-border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      transition: border-color 0.2s, background 0.2s;
+      font-family: var(--font-body);
+    }
+    .bk-slot:hover { border-color: rgba(59,111,245,0.4); }
+    .bk-slot.selected { border-color: var(--blue); background: rgba(59,111,245,0.12); color: var(--white); }
+    .bk-slot:disabled { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
+    .bk-hint { color: var(--text-muted); font-size: 0.85rem; }
+    .bk-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .bk-form .bk-full { grid-column: 1 / -1; }
+    .bk-form label { font-size: 0.72rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px; }
+    .bk-form input, .bk-form select, .bk-form textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-sm);
+      padding: 11px 13px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .bk-form input:focus, .bk-form select:focus, .bk-form textarea:focus { border-color: var(--blue); }
+    .bk-form select option { color: #1a1a1a; background: #fff; }
+    .bk-form textarea { resize: vertical; min-height: 64px; }
+    .bk-chosen { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem; }
+    .bk-chosen strong { color: var(--blue-light); }
+    .bk-submit { margin-top: 0.25rem; }
+    .bk-success { text-align: center; padding: 1.5rem 0.5rem; }
+    .bk-success svg { color: var(--blue); margin-bottom: 0.75rem; }
+    .bk-success h4 { font-family: var(--font-display); color: var(--white); font-size: 1.15rem; margin-bottom: 0.4rem; }
+    .bk-success p { color: var(--text-secondary); font-size: 0.92rem; }
+    .bk-err { color: var(--red-light); font-size: 0.85rem; margin-top: 0.5rem; min-height: 1em; }
+
+    /* ── STICKY MOBILE CALL BAR ── */
+    .mobile-cta-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 1500;
+      display: none;
+      gap: 1px;
+      background: var(--bg-glass-border);
+      border-top: 1px solid var(--bg-glass-border);
+      box-shadow: 0 -6px 24px rgba(0,0,0,0.35);
+    }
+    .mobile-cta-bar a {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 15px 10px;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--white);
+    }
+    .mobile-cta-call { background: var(--red); }
+    .mobile-cta-book { background: var(--bg-card); color: var(--blue) !important; }
+    .mobile-cta-bar svg { flex-shrink: 0; }
+
+    /* ── CHAT WIDGET ── */
+    .chat-fab {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      z-index: 1600;
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--blue), var(--red));
+      color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 30px rgba(59, 111, 245, 0.35);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .chat-fab:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 12px 36px rgba(59,111,245,0.45); }
+    .chat-fab svg { width: 26px; height: 26px; }
+    .chat-fab .chat-icon-close { display: none; }
+    .chat-fab.open .chat-icon-open { display: none; }
+    .chat-fab.open .chat-icon-close { display: block; }
+    .chat-fab-pulse {
+      position: absolute; top: -3px; right: -3px;
+      width: 14px; height: 14px;
+      background: var(--red);
+      border: 2px solid var(--bg-deep);
+      border-radius: 50%;
+    }
+    .chat-fab.open .chat-fab-pulse { display: none; }
+
+    .chat-panel {
+      position: fixed;
+      bottom: 96px; right: 24px;
+      z-index: 1600;
+      width: 380px;
+      max-width: calc(100vw - 32px);
+      height: 560px;
+      max-height: calc(100vh - 130px);
+      background: var(--bg-primary);
+      border: 1px solid var(--bg-glass-border);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
+      pointer-events: none;
+      transition: opacity 0.25s cubic-bezier(0.16,1,0.3,1), transform 0.25s cubic-bezier(0.16,1,0.3,1);
+    }
+    .chat-panel.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .chat-head {
+      display: flex; align-items: center; gap: 12px;
+      padding: 1rem 1.25rem;
+      background: linear-gradient(135deg, rgba(59,111,245,0.12), rgba(212,25,32,0.08));
+      border-bottom: 1px solid var(--bg-glass-border);
+    }
+    .chat-head-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--red));
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .chat-head-avatar svg { color: var(--white); width: 20px; height: 20px; }
+    .chat-head-info { line-height: 1.3; }
+    .chat-head-info strong { font-family: var(--font-display); font-size: 0.95rem; color: var(--white); display: block; }
+    .chat-head-info span { font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+    .chat-head-dot { width: 7px; height: 7px; border-radius: 50%; background: #22C55E; display: inline-block; }
+    .chat-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      background: var(--bg-deep);
+    }
+    .chat-msg { max-width: 85%; padding: 0.7rem 0.95rem; border-radius: 14px; font-size: 0.9rem; line-height: 1.55; white-space: pre-wrap; word-wrap: break-word; }
+    .chat-msg.bot { align-self: flex-start; background: var(--bg-card); color: var(--text-primary); border-bottom-left-radius: 4px; }
+    .chat-msg.user { align-self: flex-end; background: var(--blue); color: var(--white); border-bottom-right-radius: 4px; }
+    .chat-typing { align-self: flex-start; display: flex; gap: 4px; padding: 0.8rem 1rem; background: var(--bg-card); border-radius: 14px; border-bottom-left-radius: 4px; }
+    .chat-typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--text-muted); animation: chatDot 1.2s infinite ease-in-out; }
+    .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes chatDot { 0%,60%,100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+    .chat-quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 1.25rem 0.5rem; background: var(--bg-deep); }
+    .chat-quick button {
+      background: rgba(59,111,245,0.08);
+      border: 1px solid rgba(59,111,245,0.2);
+      color: var(--blue);
+      border-radius: 50px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .chat-quick button:hover { background: rgba(59,111,245,0.16); }
+    .chat-input-row {
+      display: flex; gap: 8px;
+      padding: 0.85rem 1rem;
+      border-top: 1px solid var(--bg-glass-border);
+      background: var(--bg-primary);
+    }
+    .chat-input-row input {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 50px;
+      padding: 11px 16px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .chat-input-row input:focus { border-color: var(--blue); }
+    .chat-send {
+      width: 42px; height: 42px; flex-shrink: 0;
+      border-radius: 50%;
+      border: none;
+      background: var(--red);
+      color: var(--white);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .chat-send:hover { transform: scale(1.06); background: #EF4444; }
+    .chat-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    @media (max-width: 900px) {
+      .schedule-wrap { grid-template-columns: 1fr; }
+      .mobile-cta-bar { display: flex; }
+      /* Lift the chat button above the sticky call bar on mobile */
+      .chat-fab { bottom: 76px; }
+      .chat-panel { bottom: 148px; max-height: calc(100vh - 200px); }
+      /* Keep footer/page content clear of the fixed call bar */
+      footer { padding-bottom: 90px; }
+    }
+    @media (max-width: 600px) {
+      .schedule-card { padding: 1.75rem 1.35rem; }
+      .chat-panel { right: 16px; width: calc(100vw - 32px); }
+      .chat-fab { right: 16px; }
+    }
   </style>
 </head>
 <body>
 
 <!-- ═══════════════════════════════════ LOGO BANNER (fixed) ═══════════════════════════════════ -->
 <div class="logo-banner" aria-hidden="true">
-  <img src="Logo_No_Shadow.png" alt="MBR Air Conditioning & Refrigeration">
+  <img src="Logo_No_Shadow.png" alt="MBR Air Conditioning & Refrigeration" decoding="async" fetchpriority="high" width="420" height="420">
 </div>
 
 <!-- ═══════════════════════════════════ PAGE CONTENT (scrolls over logo) ═══════════════════════════════════ -->
@@ -1124,6 +1477,7 @@
       <li><a href="#why">Why Us</a></li>
       <li><a href="#areas">Areas</a></li>
       <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#schedule">Book</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li>
         <a href="tel:+12394409425" class="nav-phone">
@@ -1261,22 +1615,28 @@
       <p class="section-subtitle">We're not the biggest HVAC company in Florida — we're the one your neighbors keep recommending.</p>
     </div>
 
+    <!--
+      NOTE: These are verifiable value props, not fabricated metrics. Once you have
+      real figures (years in business, jobs completed, Google review average/count),
+      swap them in here — e.g. <div class="stat-number">12+</div><div class="stat-label">Years in Business</div>.
+      Real numbers convert better and hold up in due diligence when you sell.
+    -->
     <div class="why-grid reveal">
       <div class="stat-card">
-        <div class="stat-number">10+</div>
-        <div class="stat-label">Years Experience</div>
+        <div class="stat-number">Same-Day</div>
+        <div class="stat-label">Service Available</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">2K+</div>
-        <div class="stat-label">Jobs Completed</div>
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Emergency Response</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">4.9</div>
-        <div class="stat-label">Star Rating</div>
+        <div class="stat-number">Free</div>
+        <div class="stat-label">Estimates</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">100%</div>
-        <div class="stat-label">Satisfaction Rate</div>
+        <div class="stat-number">Licensed</div>
+        <div class="stat-label">&amp; Insured</div>
       </div>
     </div>
 
@@ -1383,62 +1743,39 @@
       <h2 class="section-title">What Our Customers Say</h2>
       <p class="section-subtitle">Don't take our word for it — hear from homeowners and businesses we've helped.</p>
     </div>
-    <div class="testimonials-grid">
+    <!--
+      ════════════════════════════════════════════════════════════════════════
+      REAL REVIEWS GO HERE. The previous version of this section used invented
+      customer quotes and names — that's a legal risk (FTC rules on testimonials)
+      and a red flag in due diligence when you sell the business.
 
-      <div class="testimonial-card reveal">
-        <div class="testimonial-stars">
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+      To populate with REAL reviews, do ONE of these:
+        A) Easiest — embed a free Google Reviews widget (e.g. Elfsight, Trustindex,
+           or Featurable). Create the widget, then paste its embed code (the
+           script/div snippet) inside the #reviews-embed container below.
+        B) Hand-pick 3 real Google reviews and recreate the original card markup,
+           using each reviewer's actual first name + last initial and city.
+
+      Also set your real Google Business Profile "write a review" link on the two
+      buttons marked data-review-link below.
+      ════════════════════════════════════════════════════════════════════════
+    -->
+    <div id="reviews-embed" class="reveal">
+      <div class="testimonial-card" style="max-width: 640px; margin: 0 auto; text-align: center;">
+        <div class="testimonial-stars" style="justify-content: center;">
+          <svg width="20" height="20" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="20" height="20" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="20" height="20" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="20" height="20" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
+          <svg width="20" height="20" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
         </div>
-        <blockquote>"MBR came out the same day we called. The technician was professional, explained everything clearly, and had our AC running perfectly within an hour. Best HVAC experience we've had in Florida."</blockquote>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">JR</div>
-          <div>
-            <div class="testimonial-name">James R.</div>
-            <div class="testimonial-location">Fort Myers, FL</div>
-          </div>
+        <h3 style="font-family: var(--font-display); color: var(--white); font-size: 1.25rem; margin-bottom: 0.75rem;">Trusted by Southwest Florida homeowners &amp; businesses</h3>
+        <blockquote style="font-style: normal;">We let our work speak for itself. Read verified reviews from real MBR customers on Google — or, if we've helped you, we'd be grateful if you left one.</blockquote>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
+          <a href="#" data-review-link class="btn-outline" style="padding: 12px 24px;">Read Google Reviews</a>
+          <a href="#" data-review-link class="btn-primary" style="padding: 12px 24px;">Leave a Review</a>
         </div>
       </div>
-
-      <div class="testimonial-card reveal">
-        <div class="testimonial-stars">
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
-        </div>
-        <blockquote>"We needed a full system replacement for our restaurant's walk-in cooler. MBR handled everything — permits, installation, cleanup. They showed up when they said they would and charged exactly what they quoted."</blockquote>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">MT</div>
-          <div>
-            <div class="testimonial-name">Maria T.</div>
-            <div class="testimonial-location">Cape Coral, FL</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial-card reveal">
-        <div class="testimonial-stars">
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
-          <svg width="16" height="16" fill="currentColor"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.6l-4.9 2.6.9-5.5-4-3.9 5.5-.8z"/></svg>
-        </div>
-        <blockquote>"Honest and dependable — that's rare these days. They've maintained our home AC for three years now. Always on time, always fair, and our system runs better than when it was brand new."</blockquote>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">DK</div>
-          <div>
-            <div class="testimonial-name">David K.</div>
-            <div class="testimonial-location">Naples, FL</div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -1531,6 +1868,94 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ SCHEDULE A VISIT ═══════════════════════════════════ -->
+<section class="schedule-section" id="schedule">
+  <div class="container">
+    <div class="schedule-header reveal">
+      <div class="section-label">Book Online</div>
+      <h2 class="section-title">Schedule a Visit</h2>
+      <p class="section-subtitle">Pick a time that works for you, or request a callback — whichever is easier. Same-day appointments are often available.</p>
+    </div>
+
+    <div class="schedule-wrap">
+      <!-- LEFT: online booking (drop your scheduling tool's embed into #booking-embed) -->
+      <div class="schedule-card reveal">
+        <h3>Pick a Time Online</h3>
+        <p>Choose a slot and we'll confirm by text. Booking takes about a minute.</p>
+        <div id="booking-embed">
+          <!--
+            This is the built-in $0 booking widget. In demo mode it emails confirmed
+            requests to info@mbracfl.com (you confirm the slot); set window.MBR_BOOKING_ENDPOINT
+            to enable the real backend (stored availability + double-booking prevention).
+            Prefer a SaaS scheduler instead? Delete this widget and paste a Housecall Pro /
+            Jobber / Calendly embed snippet here — the styling slot is the same.
+          -->
+          <div class="bk" id="bookingWidget">
+            <div class="bk-step">
+              <div class="bk-label">1 · Pick a day</div>
+              <div class="bk-days" id="bkDays"></div>
+            </div>
+            <div class="bk-step">
+              <div class="bk-label">2 · Pick an arrival window</div>
+              <div class="bk-slots" id="bkSlots"><p class="bk-hint">Select a day above to see available windows.</p></div>
+            </div>
+            <form class="bk-step" id="bkForm" style="display:none;">
+              <div class="bk-label">3 · Your details</div>
+              <p class="bk-chosen" id="bkChosen"></p>
+              <div class="bk-form">
+                <div><label for="bkName">Name</label><input id="bkName" name="name" type="text" required></div>
+                <div><label for="bkPhone">Phone</label><input id="bkPhone" name="phone" type="tel" required></div>
+                <div class="bk-full"><label for="bkEmail">Email</label><input id="bkEmail" name="email" type="email" required></div>
+                <div class="bk-full"><label for="bkAddr">Service address</label><input id="bkAddr" name="address" type="text" placeholder="Street, City, FL" required></div>
+                <div class="bk-full"><label for="bkSvc">Service needed</label>
+                  <select id="bkSvc" name="service" required>
+                    <option value="" disabled selected>Select…</option>
+                    <option>AC Repair</option>
+                    <option>New AC Installation</option>
+                    <option>Maintenance / Tune-Up</option>
+                    <option>Commercial Refrigeration</option>
+                    <option>Duct Work</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="bk-full"><label for="bkNotes">Anything we should know? (optional)</label><textarea id="bkNotes" name="notes" placeholder="System type, age, symptoms…"></textarea></div>
+                <div class="bk-full">
+                  <button type="submit" class="submit-btn bk-submit" id="bkSubmit">Confirm Request</button>
+                  <div class="bk-err" id="bkErr"></div>
+                </div>
+              </div>
+            </form>
+            <div class="bk-success" id="bkSuccess" style="display:none;">
+              <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 24l10 10L39 12"/></svg>
+              <h4>Request received!</h4>
+              <p id="bkSuccessMsg">We'll text you to confirm your appointment shortly. Thanks for choosing MBR!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: reassurance + chat -->
+      <div class="schedule-card reveal">
+        <h3>Prefer to Talk First?</h3>
+        <p>No problem. Reach a real person — no phone trees, no voicemail — and we'll get you scheduled.</p>
+        <ul class="quote-benefits" style="margin-bottom: 2rem;">
+          <li><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 10l6 6L19 3"/></svg> Same-day &amp; next-day appointments</li>
+          <li><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 10l6 6L19 3"/></svg> 24/7 emergency dispatch</li>
+          <li><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 10l6 6L19 3"/></svg> Upfront pricing before work begins</li>
+          <li><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 10l6 6L19 3"/></svg> Text confirmation &amp; reminders</li>
+        </ul>
+        <div class="schedule-cta-row">
+          <a href="tel:+12394409425" class="btn-primary" data-cta="schedule-call">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 11.2A10.3 10.3 0 011 1l2.5-.5L5.8 4l-2 2.3a11 11 0 005 5L11 9.2l3.5 2.3z"/></svg>
+            (239) 440-9425
+          </a>
+          <button type="button" class="btn-outline" data-open-chat>Ask Our Assistant</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1642,7 +2067,7 @@
 
       <div class="footer-brand-col">
         <a href="#" class="logo-area">
-          <img src="Logo_No_Shadow.png" alt="MBR Air Conditioning & Refrigeration">
+          <img src="Logo_No_Shadow.png" alt="MBR Air Conditioning & Refrigeration" loading="lazy" decoding="async" width="40" height="40">
           <div class="logo-text">
             MBR AC &amp; Refrigeration
             <small>FL Corp</small>
@@ -1696,14 +2121,58 @@
     <div class="footer-bottom">
       <p>&copy; 2026 MBR Air Conditioning &amp; Refrigeration FL Corp. All rights reserved.</p>
       <div class="footer-bottom-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
       </div>
     </div>
   </div>
 </footer>
 
 </div><!-- /page-content -->
+
+<!-- ═══════════════════════════════════ STICKY MOBILE CALL BAR ═══════════════════════════════════ -->
+<div class="mobile-cta-bar" aria-label="Quick contact">
+  <a href="tel:+12394409425" class="mobile-cta-call" data-cta="mobile-bar-call">
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 11.2A10.3 10.3 0 011 1l2.5-.5L5.8 4l-2 2.3a11 11 0 005 5L11 9.2l3.5 2.3z"/></svg>
+    Call Now
+  </a>
+  <a href="#schedule" class="mobile-cta-book" data-cta="mobile-bar-book">
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="14" height="13" rx="2"/><path d="M3 8h14M7 2v4M13 2v4"/></svg>
+    Book a Visit
+  </a>
+</div>
+
+<!-- ═══════════════════════════════════ CHAT ASSISTANT ═══════════════════════════════════ -->
+<button class="chat-fab" id="chatFab" aria-label="Open chat assistant" aria-expanded="false">
+  <span class="chat-fab-pulse"></span>
+  <svg class="chat-icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-8.5 8.5 8.5 8.5 0 01-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 014 11.5 8.5 8.5 0 0112.5 3 8.38 8.38 0 0121 11.5z"/></svg>
+  <svg class="chat-icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+</button>
+
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="MBR chat assistant" aria-hidden="true">
+  <div class="chat-head">
+    <div class="chat-head-avatar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 015 5v1a5 5 0 01-10 0V7a5 5 0 015-5z"/><path d="M4 21a8 8 0 0116 0"/></svg>
+    </div>
+    <div class="chat-head-info">
+      <strong>Coolio — MBR Assistant</strong>
+      <span><span class="chat-head-dot"></span> Typically replies in seconds</span>
+    </div>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-quick" id="chatQuick">
+    <button type="button" data-q="My AC stopped cooling">AC not cooling</button>
+    <button type="button" data-q="How much is a new AC system?">New system cost</button>
+    <button type="button" data-q="I need to schedule a maintenance visit">Book maintenance</button>
+    <button type="button" data-q="Do you handle commercial refrigeration?">Refrigeration</button>
+  </div>
+  <form class="chat-input-row" id="chatForm">
+    <input type="text" id="chatInput" placeholder="Type your question…" autocomplete="off" aria-label="Type your message">
+    <button type="submit" class="chat-send" id="chatSend" aria-label="Send message">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 9l14-7-5 14-3-5-6-2z"/></svg>
+    </button>
+  </form>
+</div>
 
 <!-- ═══════════════════════════════════ SCRIPTS ═══════════════════════════════════ -->
 <script>
@@ -1809,12 +2278,352 @@
       if (response.ok) {
         quoteForm.style.display = 'none';
         formSuccess.style.display = 'block';
+        if (window.mbrTrack) window.mbrTrack('generate_lead', { method: 'quote_form' });
       }
     }).catch(() => {
       // Fallback: submit normally
       this.submit();
     });
   });
+
+  // ── CONVERSION TRACKING ──
+  // Phone clicks (the #1 conversion for an HVAC site) + tagged CTAs.
+  document.addEventListener('click', function (e) {
+    const tel = e.target.closest('a[href^="tel:"]');
+    if (tel && window.mbrTrack) {
+      window.mbrTrack('call_click', { location: tel.getAttribute('data-cta') || 'link' });
+    }
+    const cta = e.target.closest('[data-cta]');
+    if (cta && !tel && window.mbrTrack) {
+      window.mbrTrack('cta_click', { cta: cta.getAttribute('data-cta') });
+    }
+  });
+
+  // ── CHAT ASSISTANT ──
+  (function () {
+    const fab = document.getElementById('chatFab');
+    const panel = document.getElementById('chatPanel');
+    const body = document.getElementById('chatBody');
+    const form = document.getElementById('chatForm');
+    const input = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('chatSend');
+    const quick = document.getElementById('chatQuick');
+    if (!fab || !panel) return;
+
+    const PHONE = '(239) 440-9425';
+    const history = [];        // [{role, content}] sent to the backend
+    let greeted = false;
+    let busy = false;
+
+    function openPanel() {
+      panel.classList.add('open');
+      fab.classList.add('open');
+      panel.setAttribute('aria-hidden', 'false');
+      fab.setAttribute('aria-expanded', 'true');
+      if (!greeted) {
+        greeted = true;
+        addBot("Hi! I'm Coolio, MBR's assistant 👋 How can I help with your AC, heating, or refrigeration today?");
+        if (window.mbrTrack) window.mbrTrack('chat_open');
+      }
+      setTimeout(function () { input.focus(); }, 250);
+    }
+    function closePanel() {
+      panel.classList.remove('open');
+      fab.classList.remove('open');
+      panel.setAttribute('aria-hidden', 'true');
+      fab.setAttribute('aria-expanded', 'false');
+    }
+    fab.addEventListener('click', function () {
+      panel.classList.contains('open') ? closePanel() : openPanel();
+    });
+    document.querySelectorAll('[data-open-chat]').forEach(function (b) {
+      b.addEventListener('click', openPanel);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && panel.classList.contains('open')) closePanel();
+    });
+
+    function addMsg(text, who) {
+      const el = document.createElement('div');
+      el.className = 'chat-msg ' + who;
+      el.textContent = text;
+      body.appendChild(el);
+      body.scrollTop = body.scrollHeight;
+      return el;
+    }
+    const addBot = function (t) { return addMsg(t, 'bot'); };
+    const addUser = function (t) { return addMsg(t, 'user'); };
+
+    function showTyping() {
+      const t = document.createElement('div');
+      t.className = 'chat-typing';
+      t.innerHTML = '<span></span><span></span><span></span>';
+      body.appendChild(t);
+      body.scrollTop = body.scrollHeight;
+      return t;
+    }
+
+    function fallbackReply() {
+      return "I'm not fully online yet, but our team is ready to help. Please call us at " + PHONE +
+        " (we answer 24/7 for emergencies) or use the quote form on this page and we'll reach out fast.";
+    }
+
+    // DEMO MODE responder — simple keyword matching, no API, no cost. Lets you
+    // measure real engagement (chat_open / chat_message in GA4) before paying
+    // for the live AI. Set window.MBR_CHAT_ENDPOINT to switch to Claude-powered.
+    function demoReply(raw) {
+      const t = (raw || '').toLowerCase();
+      const book = ' You can tap "Book a Visit" on the page or call ' + PHONE + '.';
+      const has = function (arr) { return arr.some(function (w) { return t.indexOf(w) > -1; }); };
+
+      if (has(['emergency','no air','not cooling','no cooling','stopped working','stopped cooling','not working','broken','no cold','warm air','not blowing','leak','burning','smell','spark'])) {
+        return "That sounds like it needs a tech soon. For anything urgent, call us right now at " + PHONE + " — we answer 24/7. Quick check first: is the thermostat set to COOL and the breaker on? If it still won't cool, we'll get someone out fast.";
+      }
+      if (has(['price','cost','quote','estimate','how much','pricing','financ'])) {
+        return "Estimates are always free. Pricing depends on your system and home, so the best step is a quick visit — and we offer financing on new installs." + book;
+      }
+      if (has(['install','replace','new system','new unit','new ac','replacement'])) {
+        return "We install energy-efficient systems sized for your space, with free estimates and financing options." + book;
+      }
+      if (has(['maintenance','tune','service plan','check up','checkup','servicing'])) {
+        return "Regular tune-ups keep bills low and catch problems early — we recommend at least once a year, ideally before cooling season." + book;
+      }
+      if (has(['refriger','cooler','freezer','walk-in','walk in','ice machine','restaurant','commercial'])) {
+        return "Yes — we handle commercial refrigeration: walk-in coolers, freezers, display cases, and ice machines, plus repair and maintenance." + book;
+      }
+      if (has(['hour','open','close','when are you','availabilit'])) {
+        return "We're open Mon–Sat, 7am–7pm, with 24/7 emergency service. Call " + PHONE + " anytime.";
+      }
+      if (has(['area','serve','location','city','near me','do you come','zip'])) {
+        return "We serve Southwest Florida — Fort Myers, Cape Coral, Naples, Bonita Springs, Lehigh Acres, Estero, Marco Island, Sanibel, Fort Myers Beach, and Immokalee." + book;
+      }
+      if (has(['schedule','book','appointment','come out','visit','set up','set-up'])) {
+        return "Happy to get you on the schedule — same-day and next-day slots are often open." + book;
+      }
+      if (has(['brand','carrier','trane','lennox','rheem','goodman','daikin','make','model'])) {
+        return "We service and install all major brands — Carrier, Trane, Lennox, Rheem, Goodman, Daikin, and more.";
+      }
+      if (has(['filter','thermostat','breaker','reset','diy','myself'])) {
+        return "A few safe things to check: replace/clean the air filter, confirm the thermostat is on COOL with fresh batteries, and make sure the breaker isn't tripped. If that doesn't do it, we'll take a look — call " + PHONE + ".";
+      }
+      if (t.trim().length < 3 || has(['hello','hi ','hey','good morning','good afternoon'])) {
+        return "Hi! Ask me anything about AC repair, installation, maintenance, or refrigeration — or tap a question below.";
+      }
+      if (has(['thank','thanks','appreciate'])) {
+        return 'Anytime! If you\'d like, I can help you get scheduled — just tap "Book a Visit" or call ' + PHONE + '.';
+      }
+      return "Great question — the fastest way to get you an exact answer is a quick call at " + PHONE + ', or tap "Book a Visit" and we\'ll take care of you.';
+    }
+
+    async function send(text) {
+      if (busy || !text.trim()) return;
+      busy = true;
+      sendBtn.disabled = true;
+      addUser(text);
+      history.push({ role: 'user', content: text });
+      if (quick) quick.style.display = 'none';
+
+      const endpoint = window.MBR_CHAT_ENDPOINT;
+      if (!endpoint) {
+        // DEMO MODE (default): scripted answers, no backend, no API cost.
+        // Still tracks engagement so you can decide if the live AI is worth it.
+        const typing = showTyping();
+        setTimeout(function () {
+          typing.remove();
+          const reply = demoReply(text);
+          addBot(reply);
+          history.push({ role: 'assistant', content: reply });
+          if (window.mbrTrack) window.mbrTrack('chat_message', { mode: 'demo' });
+          busy = false; sendBtn.disabled = false; input.focus();
+        }, 600);
+        return;
+      }
+
+      const typing = showTyping();
+      try {
+        const resp = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: history })
+        });
+        const data = await resp.json().catch(function () { return {}; });
+        typing.remove();
+        const reply = (data && data.reply) ? data.reply : fallbackReply();
+        addBot(reply);
+        history.push({ role: 'assistant', content: reply });
+        if (window.mbrTrack) window.mbrTrack('chat_message', { mode: 'live' });
+      } catch (err) {
+        typing.remove();
+        addBot(fallbackReply());
+      } finally {
+        busy = false;
+        sendBtn.disabled = false;
+        input.focus();
+      }
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const text = input.value;
+      input.value = '';
+      send(text);
+    });
+    if (quick) {
+      quick.querySelectorAll('button').forEach(function (b) {
+        b.addEventListener('click', function () { send(b.getAttribute('data-q')); });
+      });
+    }
+  })();
+
+  // ── BOOKING WIDGET ──
+  (function () {
+    const daysEl = document.getElementById('bkDays');
+    if (!daysEl) return;
+    const slotsEl = document.getElementById('bkSlots');
+    const form = document.getElementById('bkForm');
+    const chosenEl = document.getElementById('bkChosen');
+    const successEl = document.getElementById('bkSuccess');
+    const errEl = document.getElementById('bkErr');
+    const submitBtn = document.getElementById('bkSubmit');
+    const widget = document.getElementById('bookingWidget');
+    const endpoint = (window.MBR_BOOKING_ENDPOINT || '').replace(/\/$/, '');
+
+    const WINDOWS = ['7:00–9:00 AM','9:00–11:00 AM','11:00 AM–1:00 PM','1:00–3:00 PM','3:00–5:00 PM','5:00–7:00 PM'];
+    const DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    let selDate = null, selWin = null, selDayBtn = null, selSlotBtn = null;
+
+    function ymd(d) {
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    // Build day chips: next ~12 working days (closed Sundays).
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    let added = 0;
+    for (let i = 1; i <= 21 && added < 12; i++) {
+      const d = new Date(today); d.setDate(today.getDate() + i);
+      if (d.getDay() === 0) continue;
+      added++;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'bk-day';
+      btn.innerHTML = '<span class="bk-dow">' + DOW[d.getDay()] + '</span><span class="bk-dnum">' + d.getDate() + '</span><span class="bk-mon">' + MON[d.getMonth()] + '</span>';
+      btn.addEventListener('click', function () { selectDay(btn, d); });
+      daysEl.appendChild(btn);
+    }
+
+    async function selectDay(btn, d) {
+      if (selDayBtn) selDayBtn.classList.remove('selected');
+      selDayBtn = btn; btn.classList.add('selected');
+      selDate = d; selWin = null; selSlotBtn = null;
+      form.style.display = 'none';
+      renderSlots(null);
+      if (endpoint) {
+        try {
+          const r = await fetch(endpoint + '/availability?date=' + ymd(d));
+          const data = await r.json().catch(function () { return {}; });
+          renderSlots(Array.isArray(data.taken) ? data.taken : []);
+        } catch (e) { /* leave all available */ }
+      }
+    }
+
+    function renderSlots(taken) {
+      slotsEl.innerHTML = '';
+      WINDOWS.forEach(function (w, idx) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'bk-slot';
+        b.textContent = w;
+        if (taken && taken.indexOf(idx) > -1) b.disabled = true;
+        else b.addEventListener('click', function () { selectSlot(b, idx, w); });
+        slotsEl.appendChild(b);
+      });
+    }
+
+    function selectSlot(b, idx, label) {
+      if (selSlotBtn) selSlotBtn.classList.remove('selected');
+      selSlotBtn = b; b.classList.add('selected');
+      selWin = idx;
+      const dlabel = DOW[selDate.getDay()] + ', ' + MON[selDate.getMonth()] + ' ' + selDate.getDate();
+      chosenEl.innerHTML = 'Requesting: <strong>' + dlabel + '</strong> · <strong>' + label + '</strong>';
+      form.style.display = 'block';
+      errEl.textContent = '';
+      if (window.mbrTrack) window.mbrTrack('select_slot', { mode: endpoint ? 'live' : 'demo' });
+      form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      if (selDate == null || selWin == null) { errEl.textContent = 'Please pick a day and an arrival window.'; return; }
+      errEl.textContent = '';
+      submitBtn.disabled = true; submitBtn.textContent = 'Sending…';
+      const payload = {
+        date: ymd(selDate),
+        window: selWin,
+        windowLabel: WINDOWS[selWin],
+        name: document.getElementById('bkName').value.trim(),
+        phone: document.getElementById('bkPhone').value.trim(),
+        email: document.getElementById('bkEmail').value.trim(),
+        address: document.getElementById('bkAddr').value.trim(),
+        service: document.getElementById('bkSvc').value,
+        notes: document.getElementById('bkNotes').value.trim()
+      };
+      const ok = endpoint ? await submitLive(payload) : await submitDemo(payload);
+      submitBtn.disabled = false; submitBtn.textContent = 'Confirm Request';
+      if (ok) {
+        widget.querySelectorAll('.bk-step').forEach(function (s) { s.style.display = 'none'; });
+        successEl.style.display = 'block';
+        successEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        if (window.mbrTrack) window.mbrTrack('generate_lead', { method: 'booking', mode: endpoint ? 'live' : 'demo' });
+      }
+    });
+
+    async function submitDemo(p) {
+      const fd = new FormData();
+      fd.append('_subject', 'New Visit Request — ' + p.date + ' ' + p.windowLabel);
+      fd.append('_template', 'table');
+      fd.append('_captcha', 'false');
+      fd.append('Requested Date', p.date);
+      fd.append('Arrival Window', p.windowLabel);
+      fd.append('Name', p.name);
+      fd.append('Phone', p.phone);
+      fd.append('Email', p.email);
+      fd.append('Service Address', p.address);
+      fd.append('Service Needed', p.service);
+      fd.append('Notes', p.notes || '(none)');
+      try {
+        const r = await fetch('https://formsubmit.co/ajax/info@mbracfl.com', {
+          method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
+        });
+        if (r.ok) return true;
+        errEl.textContent = "That didn't send — please call (239) 440-9425.";
+        return false;
+      } catch (e) {
+        errEl.textContent = 'Network error — please call (239) 440-9425.';
+        return false;
+      }
+    }
+
+    async function submitLive(p) {
+      try {
+        const r = await fetch(endpoint + '/book', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p)
+        });
+        const data = await r.json().catch(function () { return {}; });
+        if (r.ok && data.ok) return true;
+        if (r.status === 409) {
+          errEl.textContent = 'Sorry, that window was just booked — please pick another.';
+          if (selDayBtn) selectDay(selDayBtn, selDate);
+          return false;
+        }
+        errEl.textContent = (data && data.error) ? data.error : 'Could not book — please call (239) 440-9425.';
+        return false;
+      } catch (e) {
+        errEl.textContent = 'Network error — please call (239) 440-9425.';
+        return false;
+      }
+    }
+  })();
 </script>
 
 </body>
