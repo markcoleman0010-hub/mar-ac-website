@@ -52,6 +52,13 @@
     //    the backend in /chatbot (see chatbot/README.md). Leave blank and the chat
     //    widget gracefully directs visitors to call instead.
     window.MBR_CHAT_ENDPOINT = "";
+
+    // 3) Booking endpoint — paste your Cloudflare Worker URL after deploying the
+    //    booking backend in /booking (see booking/README.md). Leave blank and the
+    //    scheduler runs in $0 demo mode: it emails confirmed requests to you and
+    //    you confirm the slot. Set this to enable real stored availability,
+    //    double-booking prevention, and automatic confirmations.
+    window.MBR_BOOKING_ENDPOINT = "";
   </script>
 
   <!-- Google Analytics 4 (loads only when an ID is set above) -->
@@ -1203,6 +1210,74 @@
     .schedule-cta-row .btn-primary,
     .schedule-cta-row .btn-outline { flex: 1; justify-content: center; min-width: 160px; }
 
+    /* ── BOOKING WIDGET ── */
+    .bk-label { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--white); margin: 0 0 0.75rem; }
+    .bk-step { margin-bottom: 1.5rem; }
+    .bk-days { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; }
+    .bk-day {
+      flex: 0 0 auto;
+      min-width: 64px;
+      padding: 10px 8px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--bg-glass-border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-secondary);
+      cursor: pointer;
+      text-align: center;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      font-family: var(--font-body);
+    }
+    .bk-day:hover { border-color: rgba(59,111,245,0.4); color: var(--text-primary); }
+    .bk-day.selected { border-color: var(--blue); background: rgba(59,111,245,0.12); color: var(--white); }
+    .bk-day .bk-dow { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+    .bk-day.selected .bk-dow { color: var(--blue-light); }
+    .bk-day .bk-dnum { display: block; font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; line-height: 1.2; }
+    .bk-day .bk-mon { display: block; font-size: 0.65rem; color: var(--text-muted); }
+    .bk-slots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .bk-slot {
+      padding: 11px 8px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--bg-glass-border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      transition: border-color 0.2s, background 0.2s;
+      font-family: var(--font-body);
+    }
+    .bk-slot:hover { border-color: rgba(59,111,245,0.4); }
+    .bk-slot.selected { border-color: var(--blue); background: rgba(59,111,245,0.12); color: var(--white); }
+    .bk-slot:disabled { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
+    .bk-hint { color: var(--text-muted); font-size: 0.85rem; }
+    .bk-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .bk-form .bk-full { grid-column: 1 / -1; }
+    .bk-form label { font-size: 0.72rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px; }
+    .bk-form input, .bk-form select, .bk-form textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-sm);
+      padding: 11px 13px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .bk-form input:focus, .bk-form select:focus, .bk-form textarea:focus { border-color: var(--blue); }
+    .bk-form select option { color: #1a1a1a; background: #fff; }
+    .bk-form textarea { resize: vertical; min-height: 64px; }
+    .bk-chosen { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem; }
+    .bk-chosen strong { color: var(--blue-light); }
+    .bk-submit { margin-top: 0.25rem; }
+    .bk-success { text-align: center; padding: 1.5rem 0.5rem; }
+    .bk-success svg { color: var(--blue); margin-bottom: 0.75rem; }
+    .bk-success h4 { font-family: var(--font-display); color: var(--white); font-size: 1.15rem; margin-bottom: 0.4rem; }
+    .bk-success p { color: var(--text-secondary); font-size: 0.92rem; }
+    .bk-err { color: var(--red-light); font-size: 0.85rem; margin-top: 0.5rem; min-height: 1em; }
+
     /* ── STICKY MOBILE CALL BAR ── */
     .mobile-cta-bar {
       position: fixed;
@@ -1676,8 +1751,8 @@
 
       To populate with REAL reviews, do ONE of these:
         A) Easiest — embed a free Google Reviews widget (e.g. Elfsight, Trustindex,
-           or Featurable). Create the widget, then paste its <script>/<div> snippet
-           inside the #reviews-embed container below (delete the placeholder).
+           or Featurable). Create the widget, then paste its embed code (the
+           script/div snippet) inside the #reviews-embed container below.
         B) Hand-pick 3 real Google reviews and recreate the original card markup,
            using each reviewer's actual first name + last initial and city.
 
@@ -1813,29 +1888,51 @@
         <p>Choose a slot and we'll confirm by text. Booking takes about a minute.</p>
         <div id="booking-embed">
           <!--
-            ════════════════════════════════════════════════════════════════
-            ONLINE BOOKING WIDGET GOES HERE.
-            Recommended: Housecall Pro or Jobber (both sync with QuickBooks and
-            build the customer/job records that make the business sellable).
-            After you create your account, paste their "Online Booking" embed
-            snippet in place of the .booking-placeholder block below.
-            A simpler option is Calendly — paste its inline-embed snippet here.
-            ════════════════════════════════════════════════════════════════
+            This is the built-in $0 booking widget. In demo mode it emails confirmed
+            requests to info@mbracfl.com (you confirm the slot); set window.MBR_BOOKING_ENDPOINT
+            to enable the real backend (stored availability + double-booking prevention).
+            Prefer a SaaS scheduler instead? Delete this widget and paste a Housecall Pro /
+            Jobber / Calendly embed snippet here — the styling slot is the same.
           -->
-          <div class="booking-placeholder">
-            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="26" height="24" rx="3"/><path d="M3 12h26M10 2v6M22 2v6"/></svg>
-            <p>Online self-scheduling is being set up. In the meantime, booking a visit is quick:</p>
-            <ol class="booking-steps">
-              <li><span class="booking-step-num"></span><span>Tap <strong>Call (239) 440-9425</strong> or request a callback below.</span></li>
-              <li><span class="booking-step-num"></span><span>Tell us what's going on and your address — we'll find the soonest slot.</span></li>
-              <li><span class="booking-step-num"></span><span>We confirm your appointment by text. A licensed tech arrives on time.</span></li>
-            </ol>
-            <div class="schedule-cta-row">
-              <a href="tel:+12394409425" class="btn-primary" data-cta="schedule-call">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 11.2A10.3 10.3 0 011 1l2.5-.5L5.8 4l-2 2.3a11 11 0 005 5L11 9.2l3.5 2.3z"/></svg>
-                Call to Book
-              </a>
-              <a href="#quote" class="btn-outline" data-cta="schedule-callback">Request a Callback</a>
+          <div class="bk" id="bookingWidget">
+            <div class="bk-step">
+              <div class="bk-label">1 · Pick a day</div>
+              <div class="bk-days" id="bkDays"></div>
+            </div>
+            <div class="bk-step">
+              <div class="bk-label">2 · Pick an arrival window</div>
+              <div class="bk-slots" id="bkSlots"><p class="bk-hint">Select a day above to see available windows.</p></div>
+            </div>
+            <form class="bk-step" id="bkForm" style="display:none;">
+              <div class="bk-label">3 · Your details</div>
+              <p class="bk-chosen" id="bkChosen"></p>
+              <div class="bk-form">
+                <div><label for="bkName">Name</label><input id="bkName" name="name" type="text" required></div>
+                <div><label for="bkPhone">Phone</label><input id="bkPhone" name="phone" type="tel" required></div>
+                <div class="bk-full"><label for="bkEmail">Email</label><input id="bkEmail" name="email" type="email" required></div>
+                <div class="bk-full"><label for="bkAddr">Service address</label><input id="bkAddr" name="address" type="text" placeholder="Street, City, FL" required></div>
+                <div class="bk-full"><label for="bkSvc">Service needed</label>
+                  <select id="bkSvc" name="service" required>
+                    <option value="" disabled selected>Select…</option>
+                    <option>AC Repair</option>
+                    <option>New AC Installation</option>
+                    <option>Maintenance / Tune-Up</option>
+                    <option>Commercial Refrigeration</option>
+                    <option>Duct Work</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="bk-full"><label for="bkNotes">Anything we should know? (optional)</label><textarea id="bkNotes" name="notes" placeholder="System type, age, symptoms…"></textarea></div>
+                <div class="bk-full">
+                  <button type="submit" class="submit-btn bk-submit" id="bkSubmit">Confirm Request</button>
+                  <div class="bk-err" id="bkErr"></div>
+                </div>
+              </div>
+            </form>
+            <div class="bk-success" id="bkSuccess" style="display:none;">
+              <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 24l10 10L39 12"/></svg>
+              <h4>Request received!</h4>
+              <p id="bkSuccessMsg">We'll text you to confirm your appointment shortly. Thanks for choosing MBR!</p>
             </div>
           </div>
         </div>
@@ -2375,6 +2472,156 @@
       quick.querySelectorAll('button').forEach(function (b) {
         b.addEventListener('click', function () { send(b.getAttribute('data-q')); });
       });
+    }
+  })();
+
+  // ── BOOKING WIDGET ──
+  (function () {
+    const daysEl = document.getElementById('bkDays');
+    if (!daysEl) return;
+    const slotsEl = document.getElementById('bkSlots');
+    const form = document.getElementById('bkForm');
+    const chosenEl = document.getElementById('bkChosen');
+    const successEl = document.getElementById('bkSuccess');
+    const errEl = document.getElementById('bkErr');
+    const submitBtn = document.getElementById('bkSubmit');
+    const widget = document.getElementById('bookingWidget');
+    const endpoint = (window.MBR_BOOKING_ENDPOINT || '').replace(/\/$/, '');
+
+    const WINDOWS = ['7:00–9:00 AM','9:00–11:00 AM','11:00 AM–1:00 PM','1:00–3:00 PM','3:00–5:00 PM','5:00–7:00 PM'];
+    const DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    let selDate = null, selWin = null, selDayBtn = null, selSlotBtn = null;
+
+    function ymd(d) {
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    // Build day chips: next ~12 working days (closed Sundays).
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    let added = 0;
+    for (let i = 1; i <= 21 && added < 12; i++) {
+      const d = new Date(today); d.setDate(today.getDate() + i);
+      if (d.getDay() === 0) continue;
+      added++;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'bk-day';
+      btn.innerHTML = '<span class="bk-dow">' + DOW[d.getDay()] + '</span><span class="bk-dnum">' + d.getDate() + '</span><span class="bk-mon">' + MON[d.getMonth()] + '</span>';
+      btn.addEventListener('click', function () { selectDay(btn, d); });
+      daysEl.appendChild(btn);
+    }
+
+    async function selectDay(btn, d) {
+      if (selDayBtn) selDayBtn.classList.remove('selected');
+      selDayBtn = btn; btn.classList.add('selected');
+      selDate = d; selWin = null; selSlotBtn = null;
+      form.style.display = 'none';
+      renderSlots(null);
+      if (endpoint) {
+        try {
+          const r = await fetch(endpoint + '/availability?date=' + ymd(d));
+          const data = await r.json().catch(function () { return {}; });
+          renderSlots(Array.isArray(data.taken) ? data.taken : []);
+        } catch (e) { /* leave all available */ }
+      }
+    }
+
+    function renderSlots(taken) {
+      slotsEl.innerHTML = '';
+      WINDOWS.forEach(function (w, idx) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'bk-slot';
+        b.textContent = w;
+        if (taken && taken.indexOf(idx) > -1) b.disabled = true;
+        else b.addEventListener('click', function () { selectSlot(b, idx, w); });
+        slotsEl.appendChild(b);
+      });
+    }
+
+    function selectSlot(b, idx, label) {
+      if (selSlotBtn) selSlotBtn.classList.remove('selected');
+      selSlotBtn = b; b.classList.add('selected');
+      selWin = idx;
+      const dlabel = DOW[selDate.getDay()] + ', ' + MON[selDate.getMonth()] + ' ' + selDate.getDate();
+      chosenEl.innerHTML = 'Requesting: <strong>' + dlabel + '</strong> · <strong>' + label + '</strong>';
+      form.style.display = 'block';
+      errEl.textContent = '';
+      if (window.mbrTrack) window.mbrTrack('select_slot', { mode: endpoint ? 'live' : 'demo' });
+      form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      if (selDate == null || selWin == null) { errEl.textContent = 'Please pick a day and an arrival window.'; return; }
+      errEl.textContent = '';
+      submitBtn.disabled = true; submitBtn.textContent = 'Sending…';
+      const payload = {
+        date: ymd(selDate),
+        window: selWin,
+        windowLabel: WINDOWS[selWin],
+        name: document.getElementById('bkName').value.trim(),
+        phone: document.getElementById('bkPhone').value.trim(),
+        email: document.getElementById('bkEmail').value.trim(),
+        address: document.getElementById('bkAddr').value.trim(),
+        service: document.getElementById('bkSvc').value,
+        notes: document.getElementById('bkNotes').value.trim()
+      };
+      const ok = endpoint ? await submitLive(payload) : await submitDemo(payload);
+      submitBtn.disabled = false; submitBtn.textContent = 'Confirm Request';
+      if (ok) {
+        widget.querySelectorAll('.bk-step').forEach(function (s) { s.style.display = 'none'; });
+        successEl.style.display = 'block';
+        successEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        if (window.mbrTrack) window.mbrTrack('generate_lead', { method: 'booking', mode: endpoint ? 'live' : 'demo' });
+      }
+    });
+
+    async function submitDemo(p) {
+      const fd = new FormData();
+      fd.append('_subject', 'New Visit Request — ' + p.date + ' ' + p.windowLabel);
+      fd.append('_template', 'table');
+      fd.append('_captcha', 'false');
+      fd.append('Requested Date', p.date);
+      fd.append('Arrival Window', p.windowLabel);
+      fd.append('Name', p.name);
+      fd.append('Phone', p.phone);
+      fd.append('Email', p.email);
+      fd.append('Service Address', p.address);
+      fd.append('Service Needed', p.service);
+      fd.append('Notes', p.notes || '(none)');
+      try {
+        const r = await fetch('https://formsubmit.co/ajax/info@mbracfl.com', {
+          method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
+        });
+        if (r.ok) return true;
+        errEl.textContent = "That didn't send — please call (239) 440-9425.";
+        return false;
+      } catch (e) {
+        errEl.textContent = 'Network error — please call (239) 440-9425.';
+        return false;
+      }
+    }
+
+    async function submitLive(p) {
+      try {
+        const r = await fetch(endpoint + '/book', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p)
+        });
+        const data = await r.json().catch(function () { return {}; });
+        if (r.ok && data.ok) return true;
+        if (r.status === 409) {
+          errEl.textContent = 'Sorry, that window was just booked — please pick another.';
+          if (selDayBtn) selectDay(selDayBtn, selDate);
+          return false;
+        }
+        errEl.textContent = (data && data.error) ? data.error : 'Could not book — please call (239) 440-9425.';
+        return false;
+      } catch (e) {
+        errEl.textContent = 'Network error — please call (239) 440-9425.';
+        return false;
+      }
     }
   })();
 </script>
