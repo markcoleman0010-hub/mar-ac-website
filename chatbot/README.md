@@ -65,8 +65,12 @@ window.MBR_CHAT_ENDPOINT = "https://mbr-ac-chat.your-subdomain.workers.dev";
 
 Commit and push. Done — the chat button on the site is now live.
 
-> Until you paste the URL, the chat button still works but politely tells visitors
-> to call (239) 440-9425 instead of erroring out.
+> **Demo mode (the default — $0):** Until you paste a URL, the chat widget runs a
+> built-in scripted assistant that answers common HVAC questions and routes people
+> to call or book. It needs no backend and costs nothing, and it still records
+> `chat_open` / `chat_message` events in Google Analytics — so you can see whether
+> customers actually use chat *before* turning on the paid AI. When engagement looks
+> worth it, deploy this Worker and paste the URL to go fully Claude-powered.
 
 ---
 

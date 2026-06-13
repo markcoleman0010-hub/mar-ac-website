@@ -2271,6 +2271,53 @@
         " (we answer 24/7 for emergencies) or use the quote form on this page and we'll reach out fast.";
     }
 
+    // DEMO MODE responder — simple keyword matching, no API, no cost. Lets you
+    // measure real engagement (chat_open / chat_message in GA4) before paying
+    // for the live AI. Set window.MBR_CHAT_ENDPOINT to switch to Claude-powered.
+    function demoReply(raw) {
+      const t = (raw || '').toLowerCase();
+      const book = ' You can tap "Book a Visit" on the page or call ' + PHONE + '.';
+      const has = function (arr) { return arr.some(function (w) { return t.indexOf(w) > -1; }); };
+
+      if (has(['emergency','no air','not cooling','no cooling','stopped working','stopped cooling','not working','broken','no cold','warm air','not blowing','leak','burning','smell','spark'])) {
+        return "That sounds like it needs a tech soon. For anything urgent, call us right now at " + PHONE + " — we answer 24/7. Quick check first: is the thermostat set to COOL and the breaker on? If it still won't cool, we'll get someone out fast.";
+      }
+      if (has(['price','cost','quote','estimate','how much','pricing','financ'])) {
+        return "Estimates are always free. Pricing depends on your system and home, so the best step is a quick visit — and we offer financing on new installs." + book;
+      }
+      if (has(['install','replace','new system','new unit','new ac','replacement'])) {
+        return "We install energy-efficient systems sized for your space, with free estimates and financing options." + book;
+      }
+      if (has(['maintenance','tune','service plan','check up','checkup','servicing'])) {
+        return "Regular tune-ups keep bills low and catch problems early — we recommend at least once a year, ideally before cooling season." + book;
+      }
+      if (has(['refriger','cooler','freezer','walk-in','walk in','ice machine','restaurant','commercial'])) {
+        return "Yes — we handle commercial refrigeration: walk-in coolers, freezers, display cases, and ice machines, plus repair and maintenance." + book;
+      }
+      if (has(['hour','open','close','when are you','availabilit'])) {
+        return "We're open Mon–Sat, 7am–7pm, with 24/7 emergency service. Call " + PHONE + " anytime.";
+      }
+      if (has(['area','serve','location','city','near me','do you come','zip'])) {
+        return "We serve Southwest Florida — Fort Myers, Cape Coral, Naples, Bonita Springs, Lehigh Acres, Estero, Marco Island, Sanibel, Fort Myers Beach, and Immokalee." + book;
+      }
+      if (has(['schedule','book','appointment','come out','visit','set up','set-up'])) {
+        return "Happy to get you on the schedule — same-day and next-day slots are often open." + book;
+      }
+      if (has(['brand','carrier','trane','lennox','rheem','goodman','daikin','make','model'])) {
+        return "We service and install all major brands — Carrier, Trane, Lennox, Rheem, Goodman, Daikin, and more.";
+      }
+      if (has(['filter','thermostat','breaker','reset','diy','myself'])) {
+        return "A few safe things to check: replace/clean the air filter, confirm the thermostat is on COOL with fresh batteries, and make sure the breaker isn't tripped. If that doesn't do it, we'll take a look — call " + PHONE + ".";
+      }
+      if (t.trim().length < 3 || has(['hello','hi ','hey','good morning','good afternoon'])) {
+        return "Hi! Ask me anything about AC repair, installation, maintenance, or refrigeration — or tap a question below.";
+      }
+      if (has(['thank','thanks','appreciate'])) {
+        return 'Anytime! If you\'d like, I can help you get scheduled — just tap "Book a Visit" or call ' + PHONE + '.';
+      }
+      return "Great question — the fastest way to get you an exact answer is a quick call at " + PHONE + ', or tap "Book a Visit" and we\'ll take care of you.';
+    }
+
     async function send(text) {
       if (busy || !text.trim()) return;
       busy = true;
@@ -2281,12 +2328,16 @@
 
       const endpoint = window.MBR_CHAT_ENDPOINT;
       if (!endpoint) {
-        // No backend configured yet — degrade gracefully.
+        // DEMO MODE (default): scripted answers, no backend, no API cost.
+        // Still tracks engagement so you can decide if the live AI is worth it.
         const typing = showTyping();
         setTimeout(function () {
           typing.remove();
-          addBot(fallbackReply());
-          busy = false; sendBtn.disabled = false;
+          const reply = demoReply(text);
+          addBot(reply);
+          history.push({ role: 'assistant', content: reply });
+          if (window.mbrTrack) window.mbrTrack('chat_message', { mode: 'demo' });
+          busy = false; sendBtn.disabled = false; input.focus();
         }, 600);
         return;
       }
@@ -2303,7 +2354,7 @@
         const reply = (data && data.reply) ? data.reply : fallbackReply();
         addBot(reply);
         history.push({ role: 'assistant', content: reply });
-        if (window.mbrTrack) window.mbrTrack('chat_message');
+        if (window.mbrTrack) window.mbrTrack('chat_message', { mode: 'live' });
       } catch (err) {
         typing.remove();
         addBot(fallbackReply());
