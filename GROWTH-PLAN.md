@@ -6,6 +6,15 @@
 
 ---
 
+## Decisions locked (owner-confirmed)
+
+- **Portfolio: both MBR and D PEC are the owner's.** Build **one shared infrastructure layer** — a single booking backend, one chat backend, one analytics/tracking convention, one review-request flow, one SMS speed-to-lead pipeline — and point both brand sites at it. Build the machinery **once**, skin it per brand. Keep GA4 as **two properties (or two data streams) under one account** so each brand is measured separately but managed together. Marketing spend (GBP, LSA, Ads) is planned as one portfolio budget, allocated to whichever brand shows the lower cost-per-booked-job.
+- **Focus: even mix across emergency / replacement / membership.** Don't hard-bias the hero to one lead type. Optimize the **whole funnel**, instrument all three CTAs equally, and let **GA4 data pick the winners** after ~4–6 weeks of real traffic — then double down on the best cost-per-booked-job. Until data exists, weight the hero toward emergency (fastest cash) while keeping replacement-financing and membership CTAs prominent below the fold.
+
+**Shared-infra implication for the backlog:** MBR is the more built-out repo, so it becomes the **reference implementation**. Fable should build/activate booking, chat, tracking, and review flows here first, then port the *same* backend (not a fork) to D PEC — configured per brand via env values, not duplicated code.
+
+---
+
 ## 0. The one-paragraph summary
 
 MBR's site is well ahead of the typical local-HVAC website: it has schema markup, a self-hosted booking system, an AI chat widget, an admin dashboard, sticky click-to-call, financing/offers/reviews sections, and conversion tracking *already wired into the code*. But three switches are off — Google Analytics has no ID (`MBR_GA4_ID = ""`), the chat endpoint is blank, and booking runs in `$0 demo mode`. That means **we are flying blind and leaving the two best conversion tools idle.** Fix measurement first (you can't grow what you can't see), then activate the dormant tools, then drive traffic. In HVAC, the website is only ~⅓ of the lead engine — Google Business Profile + reviews + Local Services Ads are the other ⅔, and they're not in this repo. This plan covers both.
@@ -144,14 +153,15 @@ Rule: **every week, double down on the lowest cost-per-booked-job channel and cu
 
 ---
 
-## 8. Open questions for the owner (answer these to sharpen the plan)
+## 8. Remaining questions to sharpen the plan
 
-1. **Are MBR and D PEC both yours?** If it's a two-brand portfolio, we should share infrastructure (booking/chat/tracking) and possibly consolidate marketing spend. If they're separate clients, keep them fully isolated.
-2. **What's your true service radius and top 3 cities by revenue?** That sets which service-area pages to build first.
-3. **Current lead volume & where from today** (phone / referrals / GBP)? Sets the baseline we're growing from.
-4. **Do you have Google Ads / LSA budget to deploy, and how much?**
-5. **Do you want a membership plan for MBR?** (Strongly recommended — biggest LTV lever.)
-6. **Who answers the phone, and how fast today?** The website can't outrun a slow callback.
+*(Ownership and focus are settled — see "Decisions locked" above. These fine-tune execution.)*
+
+1. **True service radius and top 3 cities by revenue, per brand?** Sets which service-area pages Fable builds first.
+2. **Current lead volume & sources today** (phone / referrals / GBP)? The baseline we're growing from.
+3. **Google Ads / LSA budget available** (one portfolio number)?
+4. **Membership pricing for MBR?** D PEC's is $450/yr — mirror it, or set MBR's own tier.
+5. **Who answers the phone, and how fast today?** The website can't outrun a slow callback; this sets the speed-to-lead baseline.
 
 ---
 
