@@ -13,6 +13,12 @@
 
 **Shared-infra implication for the backlog:** MBR is the more built-out repo, so it becomes the **reference implementation**. Fable should build/activate booking, chat, tracking, and review flows here first, then port the *same* backend (not a fork) to D PEC — configured per brand via env values, not duplicated code.
 
+**Hosting (owner-confirmed):** MBR front-end is on **Cloudflare** (Pages); D PEC front-end is on **Vercel**. The two front-ends deploy independently on their own hosts — that's fine and stays as-is. The **shared backend stays on Cloudflare Workers** (MBR's existing `/booking` + `/chatbot` stack, backed by D1). D PEC's Vercel-hosted static site simply `fetch()`es those same Worker URLs cross-origin. Action items this creates:
+- The Workers must send **CORS headers allowing both origins** — MBR's Cloudflare domain *and* D PEC's Vercel domain (and any custom domains). One allowlist, both brands.
+- Store the Worker endpoint URLs as **per-brand config** in each repo (MBR: the `window.MBR_*` vars; D PEC: equivalent vars), both pointing at the *same* deployed Workers.
+- Keep secrets (any API keys, Twilio creds) in **Cloudflare Worker secrets**, never in the front-end of either host.
+- Deploy commands differ by repo: MBR/Workers via `wrangler`; D PEC front-end via Vercel — don't cross them.
+
 ---
 
 ## 0. The one-paragraph summary
